@@ -9,6 +9,7 @@
 #include "PlatformPlayer.h"
 #include "SoundManager.h"
 #include "PlayButton.h"
+#include "Background.h"
 
 // Begin TitleState
 void TitleState::Enter()
@@ -18,12 +19,16 @@ void TitleState::Enter()
 	SoundManager::PlayMusic("MainMenuMusic");
 
 	TextureManager::Load("Assets/Images/Buttons/play.png", "play");
+	TextureManager::Load("Assets/Images/bg.png", "bg");
 
 	int buttonWidth = 400;
 	int buttonHeight = 100;
 	float buttonX = Game::GetInstance().kWidth / 2 - buttonWidth / 2.0f;
 	float buttonY = Game::GetInstance().kHeight / 2 - buttonHeight / 2.0f;
+	
+	m_objects.emplace("bg", new Background("bg"));
 	m_objects.emplace("play", new PlayButton({ 0, 0, buttonWidth, buttonHeight }, { buttonX, buttonY, (float)buttonWidth, (float)buttonHeight }, "play"));
+
 }
 
 void TitleState::Update(float deltaTime)
@@ -38,7 +43,7 @@ void TitleState::Update(float deltaTime)
 
 void TitleState::Render()
 {
-	SDL_SetRenderDrawColor(Game::GetInstance().GetRenderer(), 255, 0, 255, 255);
+	//SDL_SetRenderDrawColor(Game::GetInstance().GetRenderer(), 255, 0, 255, 255);
 	SDL_RenderClear(Game::GetInstance().GetRenderer());
 
 	for (auto const& i : m_objects)
