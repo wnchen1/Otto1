@@ -49,33 +49,33 @@ void Player::Update(float deltaTime)
 	////////////////Player Running////////////
 
 	case PlayerState::kRunning:
-		if (EventManager::KeyHeld(SDL_SCANCODE_W) && m_destinationTransform.y > 0)
+		if (EventManager::KeyHeld(SDL_SCANCODE_W) /*&& m_destinationTransform.y > 0*/)
 		{
 			/*m_accelX = -s_kAccelerationX;*/
 
-			m_destinationTransform.y -= 1;
+			m_destinationTransform.y -= .5;
 			if (!m_facingLeft)
 				m_facingLeft = true;
 		}
-		else if (EventManager::KeyHeld(SDL_SCANCODE_A) && m_destinationTransform.x > 0)
+		else if (EventManager::KeyHeld(SDL_SCANCODE_A) /*&& m_destinationTransform.x > 0*/)
 		{
 			/*m_accelX = -s_kAccelerationX;*/
 			
-			m_destinationTransform.x -= 1;
+			m_destinationTransform.x -= .5;
 			if (!m_facingLeft)
 				m_facingLeft = true;
 		}
-		else if (EventManager::KeyHeld(SDL_SCANCODE_S) && m_destinationTransform.x
-			< Game::kHeight - m_destinationTransform.y)
+		else if (EventManager::KeyHeld(SDL_SCANCODE_S) /*&& m_destinationTransform.x
+			< Game::kHeight - m_destinationTransform.y*/)
 		{	
-			m_destinationTransform.y += 1;
+			m_destinationTransform.y += .5;
 			if (m_facingLeft)
 				m_facingLeft = false;
 		}
-		else if (EventManager::KeyHeld(SDL_SCANCODE_D) && m_destinationTransform.x
-			< Game::kWidth - m_destinationTransform.w)
+		else if (EventManager::KeyHeld(SDL_SCANCODE_D) /*&& m_destinationTransform.x
+			< Game::kWidth - m_destinationTransform.w*/)
 		{
-			m_destinationTransform.x += 1;
+			m_destinationTransform.x += .5;
 			if (m_facingLeft)
 				m_facingLeft = false;
 		}
