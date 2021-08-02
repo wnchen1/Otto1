@@ -11,7 +11,7 @@ Player::Player(SDL_Rect sourceTransform, SDL_FRect destinationTransform)
 {
 	TextureManager::Load("Assets/Images/otto.png", "otto");
 
-	SetAnimation(0.01, 0, 13, 0);
+	SetAnimation(0.1, 0, 13, 0);
 
 //SOUNDS FOR PLAYER
 
