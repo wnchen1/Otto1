@@ -5,6 +5,7 @@ class AnimatedSpriteObject : public SpriteObject
 {
 public:
 	virtual void Render() = 0;
+	virtual void Update(float deltaTime) override;
 protected:
 
 	int m_currentSpriteIndex;	// Which sprite to display for animation.
@@ -18,7 +19,5 @@ protected:
 	AnimatedSpriteObject(const SDL_Rect source, const SDL_FRect destination);
 	
 	void SetAnimation(float frameRate, int startingSpriteIndex, int totalSprites, int sourceY = 0);
-
-	virtual void Update(float deltaTime) override;
 };
 
