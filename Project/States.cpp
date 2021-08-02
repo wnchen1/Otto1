@@ -179,7 +179,7 @@ void GameState::Render()
 {
 	SDL_Renderer* pRenderer = Game::GetInstance().GetRenderer();
 
-	SDL_SetRenderDrawColor(pRenderer, 66, 28, 82, 128);
+	SDL_SetRenderDrawColor(pRenderer, 61, 37, 59, 225);
 	SDL_RenderClear(pRenderer);
 
 	for (auto const& i : m_objects)
