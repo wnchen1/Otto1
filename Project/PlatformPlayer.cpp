@@ -136,6 +136,5 @@ void PlatformPlayer::Jump()
 
 void PlatformPlayer::Stop()
 {
-	StopX();
-	StopY();
+	Stop();
 }

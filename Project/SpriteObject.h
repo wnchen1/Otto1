@@ -11,6 +11,7 @@ public:
 	{ }
 
 	SDL_Rect* GetSourceTransform() { return &m_sourceTransform; }
+	void SetSourceTransform(SDL_Rect srcT) { srcT = m_sourceTransform; }
 
 protected:
 	SDL_Rect m_sourceTransform;

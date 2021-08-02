@@ -28,8 +28,6 @@ public:
 	void Jump();
 	void Stop();
 
-	void StopX() { m_velX = 0.0f; }
-	void StopY() { m_velY = 0.0f; }
 	void SetAccelX(float a) { m_accelX = a; }
 	void SetAccelY(float a) { m_accelY = a; }
 	bool IsGrounded() { return m_grounded; }

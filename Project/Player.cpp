@@ -53,7 +53,7 @@ void Player::Update(float deltaTime)
 		{
 			/*m_accelX = -s_kAccelerationX;*/
 
-			m_destinationTransform.y -= .5;
+			m_destinationTransform.y -= speed;
 			if (!m_facingLeft)
 				m_facingLeft = true;
 		}
@@ -61,21 +61,21 @@ void Player::Update(float deltaTime)
 		{
 			/*m_accelX = -s_kAccelerationX;*/
 			
-			m_destinationTransform.x -= .5;
+			m_destinationTransform.x -= speed;
 			if (!m_facingLeft)
 				m_facingLeft = true;
 		}
 		else if (EventManager::KeyHeld(SDL_SCANCODE_S) /*&& m_destinationTransform.x
 			< Game::kHeight - m_destinationTransform.y*/)
 		{	
-			m_destinationTransform.y += .5;
+			m_destinationTransform.y += speed;
 			if (m_facingLeft)
 				m_facingLeft = false;
 		}
 		else if (EventManager::KeyHeld(SDL_SCANCODE_D) /*&& m_destinationTransform.x
 			< Game::kWidth - m_destinationTransform.w*/)
 		{
-			m_destinationTransform.x += .5;
+			m_destinationTransform.x += speed;
 			if (m_facingLeft)
 				m_facingLeft = false;
 		}
