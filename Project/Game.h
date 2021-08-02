@@ -4,8 +4,8 @@
 class Game
 {
 public:
-	static const int kWidth = 1024;
-	static const int kHeight = 768;
+	static const int kWidth = 800;
+	static const int kHeight = 608;
 
 public:
 	static Game& GetInstance();
