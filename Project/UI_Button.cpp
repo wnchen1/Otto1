@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "TextureManager.h"
 #include "EventManager.h"
+#include "SoundManager.h"
 
 UI_Button::UI_Button(SDL_Rect source, SDL_FRect destination, const char* textureKey)
 	: SpriteObject(source, destination)
@@ -28,6 +29,9 @@ void UI_Button::Update(float deltaTime)
 		{
 			m_state = ButtonState::STATE_OVER;
 			EventManager::SetCursor(SDL_SYSTEM_CURSOR_HAND);
+			//mouseover sounds
+			SoundManager::LoadSound("Assets/Sound/Effects/mouseover.wav", "mouseover");
+			SoundManager::PlaySound("mouseover");
 		}
 		break;
 	case ButtonState::STATE_OVER:
@@ -39,6 +43,9 @@ void UI_Button::Update(float deltaTime)
 		else if (mouseOverlap && EventManager::MousePressed(1))
 		{
 			m_state = ButtonState::STATE_DOWN; // 1 is left mouse.
+			//clicky
+			SoundManager::LoadSound("Assets/Sound/Effects/buttonclick.wav", "click");
+			SoundManager::PlaySound("click");
 		}
 		break;
 	case ButtonState::STATE_DOWN:

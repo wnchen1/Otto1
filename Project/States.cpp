@@ -86,7 +86,7 @@ void GameState::Enter() // Used for initialization.
 
 	m_objects.emplace("level", new TiledLevel(19, 25, 32, 32, "Assets/Data/Tiledata.txt", "Assets/Data/Level1.txt", "tiles"));
 	//m_objects.emplace("player", new PlatformPlayer({ 0,0,128,128 }, { 50,500,64,64 }));
-	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 50, 500, 64, 64 }));
+	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 18, 485, 64, 64 }));
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - A Long Journey.mp3", "bgm2");
 	SoundManager::PlayMusic("bgm2");
