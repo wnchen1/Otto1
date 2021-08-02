@@ -83,7 +83,7 @@ void GameState::Enter() // Used for initialization.
 	TextureManager::Load("Assets/Images/Player.png", "player");
 
 
-	m_objects.emplace("level", new TiledLevel(24, 32, 32, 32, "Assets/Data/Tiledata.txt", "Assets/Data/Level1.txt", "tiles"));
+	m_objects.emplace("level", new TiledLevel(19, 25, 32, 32, "Assets/Data/Tiledata.txt", "Assets/Data/Level1.txt", "tiles"));
 	m_objects.emplace("player", new PlatformPlayer({ 0,0,128,128 }, { 50,500,64,64 }));
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - A Long Journey.mp3", "bgm2");
