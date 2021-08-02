@@ -66,14 +66,14 @@ void Player::Update(float deltaTime)
 				m_facingLeft = true;
 		}
 		else if (EventManager::KeyHeld(SDL_SCANCODE_S) && m_destinationTransform.x
-			< 600 - m_destinationTransform.y)
+			< Game::kHeight - m_destinationTransform.y)
 		{	
 			m_destinationTransform.y += 1;
 			if (m_facingLeft)
 				m_facingLeft = false;
 		}
 		else if (EventManager::KeyHeld(SDL_SCANCODE_D) && m_destinationTransform.x
-			< 800 - m_destinationTransform.w)
+			< Game::kWidth - m_destinationTransform.w)
 		{
 			m_destinationTransform.x += 1;
 			if (m_facingLeft)
