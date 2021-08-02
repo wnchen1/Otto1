@@ -11,12 +11,13 @@
 #include "PlayButton.h"
 #include "Background.h"
 
-// Begin TitleState
+////////////////////////////////////////////
+// Begin TitleState ////////////////////////
 void TitleState::Enter()
 {
 	std::cout << "Entering TitleState..." << std::endl;
-	SoundManager::LoadMusic("Assets/Sound/Music/Menu.mp3", "MainMenuMusic");
-	SoundManager::PlayMusic("MainMenuMusic");
+	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - The Invitation.mp3", "bgm1");
+	SoundManager::PlayMusic("bgm1");
 
 	TextureManager::Load("Assets/Images/Buttons/play.png", "play");
 	TextureManager::Load("Assets/Images/bg.png", "bg");
@@ -54,8 +55,9 @@ void TitleState::Exit()
 {
 	std::cout << "Exiting TitleState..." << std::endl;
 	SoundManager::StopMusic();
-	SoundManager::UnloadMusic("MainMenuMusic");
+	SoundManager::UnloadMusic("bgm1");
 
+	TextureManager::Unload("bg");
 	TextureManager::Unload("play");
 	for (auto& i : m_objects)
 	{
@@ -66,7 +68,8 @@ void TitleState::Exit()
 }
 // End TitleState
 
-// Begin GameState
+////////////////////////////////////////////
+// Begin GameState /////////////////////////
 void GameState::Enter() // Used for initialization.
 {
 	std::cout << "Entering GameState..." << std::endl;
@@ -83,8 +86,8 @@ void GameState::Enter() // Used for initialization.
 	m_objects.emplace("level", new TiledLevel(24, 32, 32, 32, "Assets/Data/Tiledata.txt", "Assets/Data/Level1.txt", "tiles"));
 	m_objects.emplace("player", new PlatformPlayer({ 0,0,128,128 }, { 50,500,64,64 }));
 
-	SoundManager::LoadMusic("Assets/Sound/Music/Level.mp3", "LevelMusic");
-	SoundManager::PlayMusic("LevelMusic");
+	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - A Long Journey.mp3", "bgm2");
+	SoundManager::PlayMusic("bgm2");
 }
 
 void GameState::Update(float deltaTime)
@@ -200,7 +203,7 @@ void GameState::Exit()
 	m_objects.clear();
 
 	SoundManager::StopMusic();
-	SoundManager::UnloadMusic("LevelMusic");
+	SoundManager::UnloadMusic("bgm2");
 }
 
 void GameState::Pause()
@@ -216,7 +219,8 @@ void GameState::Resume()
 }
 // End GameState
 
-// Begin PauseState
+////////////////////////////////////////////
+// Begin PauseState ////////////////////////
 void PauseState::Enter()
 {
 	std::cout << "Entering PauseState..." << std::endl;
