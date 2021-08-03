@@ -196,32 +196,34 @@ void GameState::Render()
 		i.second->Render();
 
 	///////////LIVES///////////////
-	//SDL_FRect* playerPos = m_objects["otto"]->GetDestinationTransform();
-	//const SDL_Rect m_h1Src = { 0, 0, 25, 25 };
-	//const SDL_Rect m_h2Src = { 0, 0, 50, 25 };
-	//const SDL_Rect m_h3Src = { 0, 0, 75, 25 };
-	//const SDL_FRect m_h1Dst = { 625, 8, 25, 25 };
-	//const SDL_FRect m_h2Dst = { 650 , 8, 50, 25 };
-	//const SDL_FRect m_h3Dst = { 675, 8, 75, 25 };
-	//if (Otto->getPlayerLive() == 3)
-	//{
-	//	SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
-	//		TextureManager::GetTexture("3h"), &m_h3Src, &m_h3Dst, 0, 0, SDL_FLIP_NONE);
-	//}
-	//else if (Otto->getPlayerLive() == 2)
-	//{
-	//	SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
-	//		TextureManager::GetTexture("2h"), &m_h2Src, &m_h2Dst, 0, 0, SDL_FLIP_NONE);
-	//}
-	//else if (Otto->getPlayerLive() == 1)
-	//{
-	//	SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
-	//		TextureManager::GetTexture("1h"), &m_h1Src, &m_h1Dst, 0, 0, SDL_FLIP_NONE);
-	//}
-	//else if (Otto->getPlayerLive() == 0)
-	//{
-	//	StateManager::ChangeState(new EndState());
-	//}
+	SDL_FRect* playerPos = m_objects["otto"]->GetDestinationTransform();
+	int ottoX = playerPos->x;
+	int ottoY = playerPos->y;
+	const SDL_Rect m_h1Src = { 0, 0, 25, 25 };
+	const SDL_Rect m_h2Src = { 0, 0, 50, 25 };
+	const SDL_Rect m_h3Src = { 0, 0, 75, 25 };
+	const SDL_FRect m_h1Dst = { ottoX , ottoY - 20, 25, 25 };
+	const SDL_FRect m_h2Dst = { ottoX - 10, ottoY - 20, 50, 25 };
+	const SDL_FRect m_h3Dst = { ottoX - 22, ottoY - 20, 75, 25 };
+	if (Otto->getPlayerLive() == 3)
+	{
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+			TextureManager::GetTexture("3h"), &m_h3Src, &m_h3Dst, 0, 0, SDL_FLIP_NONE);
+	}
+	else if (Otto->getPlayerLive() == 2)
+	{
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+			TextureManager::GetTexture("2h"), &m_h2Src, &m_h2Dst, 0, 0, SDL_FLIP_NONE);
+	}
+	else if (Otto->getPlayerLive() == 1)
+	{
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+			TextureManager::GetTexture("1h"), &m_h1Src, &m_h1Dst, 0, 0, SDL_FLIP_NONE);
+	}
+	else if (Otto->getPlayerLive() == 0)
+	{
+		StateManager::ChangeState(new EndState());
+	}
 }
 
 void GameState::Exit()
@@ -388,6 +390,35 @@ void GameState2::Render()
 
 	for (auto const& i : m_objects)
 		i.second->Render();
+
+	SDL_FRect* playerPos = m_objects["otto"]->GetDestinationTransform();
+	int ottoX = playerPos->x;
+	int ottoY = playerPos->y;
+	const SDL_Rect m_h1Src = { 0, 0, 25, 25 };
+	const SDL_Rect m_h2Src = { 0, 0, 50, 25 };
+	const SDL_Rect m_h3Src = { 0, 0, 75, 25 };
+	const SDL_FRect m_h1Dst = { ottoX , ottoY - 20, 25, 25 };
+	const SDL_FRect m_h2Dst = { ottoX - 10, ottoY - 20, 50, 25 };
+	const SDL_FRect m_h3Dst = { ottoX - 22, ottoY - 20, 75, 25 };
+	if (Otto->getPlayerLive() == 3)
+	{
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+			TextureManager::GetTexture("3h"), &m_h3Src, &m_h3Dst, 0, 0, SDL_FLIP_NONE);
+	}
+	else if (Otto->getPlayerLive() == 2)
+	{
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+			TextureManager::GetTexture("2h"), &m_h2Src, &m_h2Dst, 0, 0, SDL_FLIP_NONE);
+	}
+	else if (Otto->getPlayerLive() == 1)
+	{
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+			TextureManager::GetTexture("1h"), &m_h1Src, &m_h1Dst, 0, 0, SDL_FLIP_NONE);
+	}
+	else if (Otto->getPlayerLive() == 0)
+	{
+		StateManager::ChangeState(new EndState());
+	}
 }
 
 void GameState2::Exit()
@@ -523,6 +554,35 @@ void GameState3::Render()
 
 	for (auto const& i : m_objects)
 		i.second->Render();
+
+	SDL_FRect* playerPos = m_objects["otto"]->GetDestinationTransform();
+	int ottoX = playerPos->x;
+	int ottoY = playerPos->y;
+	const SDL_Rect m_h1Src = { 0, 0, 25, 25 };
+	const SDL_Rect m_h2Src = { 0, 0, 50, 25 };
+	const SDL_Rect m_h3Src = { 0, 0, 75, 25 };
+	const SDL_FRect m_h1Dst = { ottoX , ottoY - 20, 25, 25 };
+	const SDL_FRect m_h2Dst = { ottoX - 10, ottoY - 20, 50, 25 };
+	const SDL_FRect m_h3Dst = { ottoX - 22, ottoY - 20, 75, 25 };
+	if (Otto->getPlayerLive() == 3)
+	{
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+			TextureManager::GetTexture("3h"), &m_h3Src, &m_h3Dst, 0, 0, SDL_FLIP_NONE);
+	}
+	else if (Otto->getPlayerLive() == 2)
+	{
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+			TextureManager::GetTexture("2h"), &m_h2Src, &m_h2Dst, 0, 0, SDL_FLIP_NONE);
+	}
+	else if (Otto->getPlayerLive() == 1)
+	{
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+			TextureManager::GetTexture("1h"), &m_h1Src, &m_h1Dst, 0, 0, SDL_FLIP_NONE);
+	}
+	else if (Otto->getPlayerLive() == 0)
+	{
+		StateManager::ChangeState(new EndState());
+	}
 }
 
 void GameState3::Exit()

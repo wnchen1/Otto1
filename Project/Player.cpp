@@ -6,7 +6,7 @@
 #include "SoundManager.h"
 
 Player::Player(SDL_Rect sourceTransform, SDL_FRect destinationTransform, int lives):
-/*	:playerLive(live)*/ AnimatedSpriteObject(sourceTransform, destinationTransform),
+	playerLives(lives), AnimatedSpriteObject(sourceTransform, destinationTransform),
 	m_state(PlayerState::kIdle),
 	m_facingLeft(false)
 	
