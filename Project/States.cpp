@@ -93,7 +93,10 @@ void GameState::Enter() // Used for initialization.
 	TextureManager::Load("Assets/Images/key.png", "key");
 
 	m_objects.emplace("level1", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level1 Data.txt", "Assets/Data/Level1.txt", "grave"));
-	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 60, 32, 32, 32 }));
+	Otto = new Player({ 0, 0, 64, 64 }, { 60, 32, 32, 32 }, 3);
+	m_objects.emplace("otto", Otto);
+
+	std::cout << Otto->getPlayerLive();
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - A Long Journey.mp3", "bgm2");
 	SoundManager::SetMusicVolume(10);
@@ -293,7 +296,8 @@ void GameState2::Enter() // Used for initialization.
 	TextureManager::Load("Assets/Images/Player.png", "player");
 
 	m_objects.emplace("level2", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level2 Data.txt", "Assets/Data/Level2.txt", "tiles"));
-	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 32, 512, 32, 32 }));
+	Otto = new Player({ 0, 0, 64, 64 }, { 32, 512, 32, 32 }, 3);
+	m_objects.emplace("otto", Otto);
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - At the Gates.mp3", "bgm3");
 	SoundManager::SetMusicVolume(10);
@@ -427,7 +431,8 @@ void GameState3::Enter() // Used for initialization.
 
 
 	m_objects.emplace("level", new TiledLevel(19, 25, 32, 32, "Assets/Data/Tiledata.txt", "Assets/Data/Level1.txt", "tiles"));
-	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 400, 200, 32, 32 }));
+	Otto = new Player({ 0, 0, 64, 64 }, { 32, 512, 32, 32 }, 3);
+	m_objects.emplace("otto", Otto);
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - The Lord Gives Chase.mp3", "bgm4");
 	SoundManager::SetMusicVolume(10);

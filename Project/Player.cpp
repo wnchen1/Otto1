@@ -5,7 +5,7 @@
 #include "EventManager.h"
 #include "SoundManager.h"
 
-Player::Player(SDL_Rect sourceTransform, SDL_FRect destinationTransform/* int live*/):
+Player::Player(SDL_Rect sourceTransform, SDL_FRect destinationTransform, int lives):
 /*	:playerLive(live)*/ AnimatedSpriteObject(sourceTransform, destinationTransform),
 	m_state(PlayerState::kIdle),
 	m_facingLeft(false)
@@ -131,7 +131,7 @@ void Player::takeDamage(int dam)
 	if(health <= 0)
 	{
 		health = 100;
-		/*playerLive--;*/
+		playerLives--;
 	}
 }
 
