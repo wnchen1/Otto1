@@ -83,8 +83,9 @@ void GameState::Enter() // Used for initialization.
 	m_RectangleTransform.h = 100;
 
 	TextureManager::Load("Assets/Images/Tiles.png", "tiles");
-//	TextureManager::Load("Assets/Images/Player.png", "player");
-
+	TextureManager::Load("Assets/Images/3.png", "3h");
+	TextureManager::Load("Assets/Images/2.png", "2h");
+	TextureManager::Load("Assets/Images/1.png", "1h");
 
 	m_objects.emplace("level", new TiledLevel(19, 25, 32, 32, "Assets/Data/Tiledata.txt", "Assets/Data/Level1.txt", "tiles"));
 	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 400, 200, 32, 32 }));
@@ -179,10 +180,30 @@ void GameState::Render()
 	for (auto const& i : m_objects)
 		i.second->Render();
 
-
-	/*SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, 255);
-	SDL_RenderFillRectF(pRenderer, &m_RectangleTransform);*/
-
+	///////////LIVES///////////////
+	SDL_FRect* playerPos = m_objects["otto"]->GetDestinationTransform();
+	const SDL_Rect m_h1Src = { 0, 0, 25, 25 };
+	const SDL_Rect m_h2Src = { 0, 0, 50, 25 };
+	const SDL_Rect m_h3Src = { 0, 0, 75, 25 };
+	const SDL_FRect m_h1Dst = { playerPos->x , playerPos->y - 15, 25, 25 };
+	const SDL_FRect m_h2Dst = { playerPos->x - 10 , playerPos->y - 15, 50, 25 };
+	const SDL_FRect m_h3Dst = { playerPos->x - 22, playerPos->y - 15, 75, 25 };
+	if (lives == 3)
+	{
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+			TextureManager::GetTexture("3h"), &m_h3Src, &m_h3Dst, 0, 0, SDL_FLIP_NONE);
+	}
+	else if (lives == 2)
+	{
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+			TextureManager::GetTexture("2h"), &m_h2Src, &m_h2Dst, 0, 0, SDL_FLIP_NONE);
+	}
+	else if (lives == 1)
+	{
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+			TextureManager::GetTexture("1h"), &m_h1Src, &m_h1Dst, 0, 0, SDL_FLIP_NONE);
+	}
+	//////////////////////////////////
 }
 
 void GameState::Exit()
