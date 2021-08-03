@@ -12,6 +12,8 @@ public:
 	// Life Cycle Methods
 	virtual void Render() override;
 	virtual void Update(float deltaTime) override;
+	void SetX(float x) { m_destinationTransform.x = x; }
+	void SetY(float y) { m_destinationTransform.y = y; }
 
 private:
 	enum class PlayerState { kIdle, kRunning, kAttacking };

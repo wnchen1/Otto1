@@ -85,8 +85,7 @@ void GameState::Enter() // Used for initialization.
 
 
 	m_objects.emplace("level", new TiledLevel(19, 25, 32, 32, "Assets/Data/Tiledata.txt", "Assets/Data/Level1.txt", "tiles"));
-	//m_objects.emplace("player", new PlatformPlayer({ 0,0,128,128 }, { 50,500,64,64 }));
-	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 350, 200, 32, 32 }));
+	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 400, 200, 32, 32 }));
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - A Long Journey.mp3", "bgm2");
 	SoundManager::PlayMusic("bgm2");
@@ -109,69 +108,69 @@ void GameState::Update(float deltaTime)
 			i.second->Update(deltaTime);
 		}
 		
-		// Check collision.
-		//SDL_FRect* playerColliderTransform = m_objects["player"]->GetDestinationTransform(); // Copies address of player m_dst.
+		 //Check collision.
+		SDL_FRect* playerColliderTransform = m_objects["otto"]->GetDestinationTransform(); // Copies address of player m_dst.
 
-		//float playerLeft = playerColliderTransform->x;
-		//float playerRight = playerColliderTransform->x + playerColliderTransform->w;
-		//float playerTop = playerColliderTransform->y;
-		//float playerBottom = playerColliderTransform->y + playerColliderTransform->h;
+		float playerLeft = playerColliderTransform->x;
+		float playerRight = playerColliderTransform->x + playerColliderTransform->w;
+		float playerTop = playerColliderTransform->y;
+		float playerBottom = playerColliderTransform->y + playerColliderTransform->h;
 
-		//Player* pPlayer = static_cast<Player*>(m_objects["player"]);
+		Player* pPlayer = static_cast<Player*>(m_objects["otto"]);
 
-		//for (unsigned int i = 0; i < static_cast<TiledLevel*>(m_objects["level"])->GetObstacles().size(); i++)
-		//{
-		//	SDL_FRect* obstacleColliderTransform = static_cast<TiledLevel*>(m_objects["level"])->GetObstacles()[i]->GetDestinationTransform();
+		for (unsigned int i = 0; i < static_cast<TiledLevel*>(m_objects["level"])->GetObstacles().size(); i++)
+		{
+			SDL_FRect* obstacleColliderTransform = static_cast<TiledLevel*>(m_objects["level"])->GetObstacles()[i]->GetDestinationTransform();
 
-		//	float obstacleLeft = obstacleColliderTransform->x;
-		//	float obstacleRight = obstacleColliderTransform->x + obstacleColliderTransform->w;
-		//	float obstacleTop = obstacleColliderTransform->y;
-		//	float obstacleBottom = obstacleColliderTransform->y + obstacleColliderTransform->h;
+			float obstacleLeft = obstacleColliderTransform->x;
+			float obstacleRight = obstacleColliderTransform->x + obstacleColliderTransform->w;
+			float obstacleTop = obstacleColliderTransform->y;
+			float obstacleBottom = obstacleColliderTransform->y + obstacleColliderTransform->h;
 
-		//	 //Check if they overlap horizontally
-		//	 //by comparing right vs. left and left vs. right.
-		//	bool xOverlap = playerLeft < obstacleRight && playerRight > obstacleLeft;
+			 //Check if they overlap horizontally
+			 //by comparing right vs. left and left vs. right.
+			bool xOverlap = playerLeft < obstacleRight && playerRight > obstacleLeft;
 
-		//	 //Check if they also overlap vertically
-		//	 //by comparing top vs. bottom and bottom vs. top.
-		//	bool yOverlap = playerTop < obstacleBottom && playerBottom > obstacleTop;
+			 //Check if they also overlap vertically
+			 //by comparing top vs. bottom and bottom vs. top.
+			bool yOverlap = playerTop < obstacleBottom && playerBottom > obstacleTop;
 
-		//	 //Used to determine which direction the collision came from
-		//	float bottomCollision = obstacleBottom - playerColliderTransform->y;
-		//	float topCollision = playerBottom - obstacleColliderTransform->y;
-		//	float leftCollision = playerRight - obstacleColliderTransform->x;
-		//	float rightCollision = obstacleRight - playerColliderTransform->x;
+			 //Used to determine which direction the collision came from
+			float bottomCollision = obstacleBottom - playerColliderTransform->y;
+			float topCollision = playerBottom - obstacleColliderTransform->y;
+			float leftCollision = playerRight - obstacleColliderTransform->x;
+			float rightCollision = obstacleRight - playerColliderTransform->x;
 
-		//	 //If they overlap both horizontally and vertically,
-		//	 //then they truly overlap.
-		//	if (xOverlap && yOverlap)
-		//	{
-		//		 //Top collision
-		//		if (topCollision < bottomCollision && topCollision < leftCollision && topCollision < rightCollision)
-		//		{
-		//			pPlayer->Stop();
-		//			pPlayer->SetY(playerColliderTransform->y - topCollision);
-		//		}
-		//		 //Bottom collision
-		//		if (bottomCollision < topCollision && bottomCollision < leftCollision && bottomCollision < rightCollision)
-		//		{
-		//			pPlayer->Stop();
-		//			pPlayer->SetY(playerColliderTransform->y + bottomCollision);
-		//		}
-		//		 //Left collision
-		//		if (leftCollision < rightCollision && leftCollision < topCollision && leftCollision < bottomCollision)
-		//		{
-		//			pPlayer->Stop();
-		//			pPlayer->SetX(playerColliderTransform->x - leftCollision);
-		//		}
-		//		 //Right collision
-		//		if (rightCollision < leftCollision && rightCollision < topCollision && rightCollision < bottomCollision)
-		//		{
-		//			//Stop Player
-		//			pPlayer->SetX(playerColliderTransform->x + rightCollision);
-		//		}
-		//	}
-		//}
+			 //If they overlap both horizontally and vertically,
+			 //then they truly overlap.
+			if (xOverlap && yOverlap)
+			{
+				 //Top collision
+				if (topCollision < bottomCollision && topCollision < leftCollision && topCollision < rightCollision)
+				{
+					std::cout << "top";
+					pPlayer->SetY(playerColliderTransform->y - topCollision);
+				}
+				 //Bottom collision
+				if (bottomCollision < topCollision && bottomCollision < leftCollision && bottomCollision < rightCollision)
+				{
+					std::cout << "bottom";
+					pPlayer->SetY(playerColliderTransform->y + bottomCollision);
+				}
+				 //Left collision
+				if (leftCollision < rightCollision && leftCollision < topCollision && leftCollision < bottomCollision)
+				{
+					std::cout << "left";
+					pPlayer->SetX(playerColliderTransform->x - leftCollision);
+				}
+				 //Right collision
+				if (rightCollision < leftCollision && rightCollision < topCollision && rightCollision < bottomCollision)
+				{
+					std::cout << "right";
+					pPlayer->SetX(playerColliderTransform->x + rightCollision);
+				}
+			}
+		}
 	}
 }
 
