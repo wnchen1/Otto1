@@ -468,7 +468,6 @@ void GameState3::Enter() // Used for initialization.
 	TextureManager::Load("Assets/Images/Tiles.png", "tiles");
 	TextureManager::Load("Assets/Images/Player.png", "player");
 
-
 	m_objects.emplace("level3", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level3 Data.txt", "Assets/Data/Level3.txt", "tiles"));
 	Otto = new Player({ 0, 0, 64, 64 }, { 32, 512, 32, 32 }, 3);
 	m_objects.emplace("otto", Otto);
