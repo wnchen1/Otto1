@@ -22,7 +22,7 @@ public:
 private:
 	enum class PlayerState { kIdle, kRunning, kAttacking };
 	bool m_facingLeft;
-	double speed = 0.25;
+	double speed = 0.5;
 	int playerLives;
 	int attackValue = 15;
 	int health = 100;

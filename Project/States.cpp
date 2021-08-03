@@ -312,6 +312,7 @@ void GameState2::Enter() // Used for initialization.
 
 void GameState2::Update(float deltaTime)
 {
+	std::cout << m_objects["otto"]->GetDestinationTransform()->x << "," << m_objects["otto"]->GetDestinationTransform()->y << std::endl;
 	if (EventManager::KeyPressed(SDL_SCANCODE_X))
 	{
 		StateManager::ChangeState(new TitleState()); // Change to new TitleState
@@ -381,6 +382,13 @@ void GameState2::Update(float deltaTime)
 					pPlayer->SetX(playerColliderTransform->x + rightCollision);
 				}
 			}
+		}
+		if (m_objects["otto"]->GetDestinationTransform()->x == 736 &&
+			m_objects["otto"]->GetDestinationTransform()->y == 32)
+			//AND THEY HAVE GOTTEN THE KEY//
+		{
+			GameState2::Exit();
+			StateManager::ChangeState(new GameState3);
 		}
 	}
 }
@@ -465,7 +473,7 @@ void GameState3::Enter() // Used for initialization.
 	TextureManager::Load("Assets/Images/Player.png", "player");
 
 
-	m_objects.emplace("level", new TiledLevel(19, 25, 32, 32, "Assets/Data/Tiledata.txt", "Assets/Data/Level1.txt", "tiles"));
+	m_objects.emplace("level3", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level3 Data.txt", "Assets/Data/Level3.txt", "tiles"));
 	Otto = new Player({ 0, 0, 64, 64 }, { 32, 512, 32, 32 }, 3);
 	m_objects.emplace("otto", Otto);
 
@@ -501,9 +509,9 @@ void GameState3::Update(float deltaTime)
 
 		Player* pPlayer = static_cast<Player*>(m_objects["otto"]);
 
-		for (unsigned int i = 0; i < static_cast<TiledLevel*>(m_objects["level"])->GetObstacles().size(); i++)
+		for (unsigned int i = 0; i < static_cast<TiledLevel*>(m_objects["level3"])->GetObstacles().size(); i++)
 		{
-			SDL_FRect* obstacleColliderTransform = static_cast<TiledLevel*>(m_objects["level"])->GetObstacles()[i]->GetDestinationTransform();
+			SDL_FRect* obstacleColliderTransform = static_cast<TiledLevel*>(m_objects["level3"])->GetObstacles()[i]->GetDestinationTransform();
 
 			float obstacleLeft = obstacleColliderTransform->x;
 			float obstacleRight = obstacleColliderTransform->x + obstacleColliderTransform->w;
