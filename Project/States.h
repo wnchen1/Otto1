@@ -34,6 +34,7 @@ class GameState : public State
 {
 	static const int kRectangeSpeed = 300;
 	SDL_FRect m_RectangleTransform;
+	int lives = 2;
 
 public:
 	virtual void Enter() override;
