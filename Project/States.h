@@ -2,7 +2,8 @@
 #include <SDL.h>
 #include <map>
 #include <string>
-
+#include <vector>
+class Enemy;
 class Player;
 class GameObject;
 
@@ -19,6 +20,9 @@ public:
 	virtual void Pause() { }
 	virtual void Resume() { }
 	Player* Otto;
+	
+	
+	
 	std::map<std::string, GameObject*> m_objects;
 };
 

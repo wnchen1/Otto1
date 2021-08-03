@@ -95,8 +95,12 @@ void GameState::Enter() // Used for initialization.
 	m_objects.emplace("level1", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level1 Data.txt", "Assets/Data/Level1.txt", "grave"));
 	Otto = new Player({ 0, 0, 64, 64 }, { 60, 32, 32, 32 }, 3);
 	m_objects.emplace("otto", Otto);
+	//Enemies 6 
+	m_objects.emplace("enemy", new Enemy({ 0, 0, 64, 64 }, { 125, 32, 32, 32 }, 100, 15));
+	
+	
 
-	std::cout << Otto->getPlayerLive();
+	
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - A Long Journey.mp3", "bgm2");
 	SoundManager::SetMusicVolume(10);

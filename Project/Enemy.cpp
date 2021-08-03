@@ -5,14 +5,17 @@
 #include "EventManager.h"
 #include "SoundManager.h"
 
-Enemy::Enemy(SDL_Rect sourceTransform, SDL_FRect destinationTransform)
-	: AnimatedSpriteObject(sourceTransform, destinationTransform),
+Enemy::Enemy(SDL_Rect sourceTransform, SDL_FRect destinationTransform, int hP, int attP) :
+	attackValue(attP),
+	health(hP),
+	AnimatedSpriteObject(sourceTransform, destinationTransform),
 	m_state(EnemyState::kIdle),
-	m_facingLeft(false)
+	m_facingLeft(false),
+	m_attack(false)
 {
-	TextureManager::Load("Assets/Images/slime.png", "slime");
+	TextureManager::Load("Assets/Images/NightBorne.png", "enemy");
 
-	SetAnimation(0.1, 0, 8, 0);
+	SetAnimation(0.1, 0, 9, 0);
 
 	//SOUNDS FOR PLAYER
 	SoundManager::SetSoundVolume(10);
@@ -33,9 +36,10 @@ void Enemy::Update(float deltaTime)
 	switch (m_state)
 	{
 	case EnemyState::kIdle:
-
 		AnimatedSpriteObject::Update(deltaTime);
+		SetAnimation(0.1f, 0, 9, 0);
 	}
+	
 
 }
 
