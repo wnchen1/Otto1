@@ -9,6 +9,7 @@
 #include "PlatformPlayer.h"
 #include "SoundManager.h"
 #include "PlayButton.h"
+#include "ExitButton.h"
 #include "Background.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -23,6 +24,7 @@ void TitleState::Enter()
 	SoundManager::PlayMusic("bgm1");
 
 	TextureManager::Load("Assets/Images/Buttons/play.png", "play");
+	TextureManager::Load("Assets/Images/Buttons/exit.png", "exit");
 	TextureManager::Load("Assets/Images/bg.png", "bg");
 
 	int buttonWidth = 400;
@@ -32,7 +34,7 @@ void TitleState::Enter()
 	
 	m_objects.emplace("bg", new Background("bg"));
 	m_objects.emplace("play", new PlayButton({ 0, 0, buttonWidth, buttonHeight }, { buttonX, buttonY, (float)buttonWidth, (float)buttonHeight }, "play"));
-
+	m_objects.emplace("exit", new ExitButton({ 0, 0, buttonWidth, buttonHeight }, { 200, 400, (float)buttonWidth, (float)buttonHeight }, "exit"));
 }
 
 void TitleState::Update(float deltaTime)
@@ -62,6 +64,7 @@ void TitleState::Exit()
 
 	TextureManager::Unload("bg");
 	TextureManager::Unload("play");
+	TextureManager::Unload("exit");
 	for (auto& i : m_objects)
 	{
 		delete i.second;
@@ -415,7 +418,7 @@ void GameState3::Enter() // Used for initialization.
 	m_objects.emplace("level", new TiledLevel(19, 25, 32, 32, "Assets/Data/Tiledata.txt", "Assets/Data/Level1.txt", "tiles"));
 	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 400, 200, 32, 32 }));
 
-	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - The Lord Gives Chase", "bgm4");
+	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - The Lord Gives Chase.mp3", "bgm4");
 	SoundManager::SetMusicVolume(10);
 	SoundManager::PlayMusic("bgm4");
 }
@@ -541,20 +544,22 @@ void GameState3::Resume()
 void EndState::Enter()
 {
 	std::cout << "Entering EndState..." << std::endl;
-	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - A New Day", "bgm5");
+	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - A New Day.mp3", "bgm5");
 	SoundManager::SetMusicVolume(20);
 	SoundManager::PlayMusic("bgm5");
 
 	TextureManager::Load("Assets/Images/Buttons/play.png", "play");
-	TextureManager::Load("Assets/Images/gameover.jpg", "gameover");
+	TextureManager::Load("Assets/Images/Buttons/exit.png", "exit");
+	TextureManager::Load("Assets/Images/gameover.png", "bg");
 
 	int buttonWidth = 400;
 	int buttonHeight = 100;
 	float buttonX = Game::GetInstance().kWidth / 2 - buttonWidth / 2.0f;
 	float buttonY = Game::GetInstance().kHeight / 2 - buttonHeight / 2.0f;
 
-	m_objects.emplace("gameover", new Background("gameover"));
+	m_objects.emplace("bg", new Background("bg"));
 	m_objects.emplace("play", new PlayButton({ 0, 0, buttonWidth, buttonHeight }, { buttonX, buttonY, (float)buttonWidth, (float)buttonHeight }, "play"));
+	m_objects.emplace("exit", new ExitButton({ 0, 0, buttonWidth, buttonHeight }, { 200, 400, (float)buttonWidth, (float)buttonHeight }, "exit"));
 
 }
 
@@ -583,8 +588,9 @@ void EndState::Exit()
 	SoundManager::StopMusic();
 	SoundManager::UnloadMusic("bgm5");
 
-	TextureManager::Unload("bg");
+	TextureManager::Unload("gameover");
 	TextureManager::Unload("play");
+	TextureManager::Unload("exit");
 	for (auto& i : m_objects)
 	{
 		delete i.second;

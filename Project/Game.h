@@ -16,6 +16,7 @@ public:
 	void Update(float deltaTime);
 	void Render();
 	void Clean();
+	void QuitGame() { m_running = false; }
 
 	SDL_Window* GetWindow() { return m_pWindow; }
 	SDL_Renderer* GetRenderer() { return m_pRenderer; }
