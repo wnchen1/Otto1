@@ -95,7 +95,7 @@ void GameState::Enter() // Used for initialization.
 
 	/*m_objects.emplace("level", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level1 Data.txt", "Assets/Data/Level1.txt", "tiles"));*/
 	m_objects.emplace("level", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level2 Data.txt", "Assets/Data/Level2.txt", "grave"));
-	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 400, 200, 32, 32 }), 3);
+	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 400, 200, 32, 32 }, 3));
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - A Long Journey.mp3", "bgm2");
 	SoundManager::SetMusicVolume(10);
@@ -193,25 +193,25 @@ void GameState::Render()
 	const SDL_Rect m_h1Src = { 0, 0, 25, 25 };
 	const SDL_Rect m_h2Src = { 0, 0, 50, 25 };
 	const SDL_Rect m_h3Src = { 0, 0, 75, 25 };
-	const SDL_FRect m_h1Dst = { playerPos->x , playerPos->y - 15, 25, 25 };
-	const SDL_FRect m_h2Dst = { playerPos->x - 10 , playerPos->y - 15, 50, 25 };
-	const SDL_FRect m_h3Dst = { playerPos->x - 22, playerPos->y - 15, 75, 25 };
-	if (lives == 3)
+	const SDL_FRect m_h1Dst = { 625, 8, 25, 25 };
+	const SDL_FRect m_h2Dst = { 650 , 8, 50, 25 };
+	const SDL_FRect m_h3Dst = { 675, 8, 75, 25 };
+	if (Otto->getPlayerLive() == 3)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("3h"), &m_h3Src, &m_h3Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (lives == 2)
+	else if (Otto->getPlayerLive() == 2)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("2h"), &m_h2Src, &m_h2Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (lives == 1)
+	else if (Otto->getPlayerLive() == 1)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("1h"), &m_h1Src, &m_h1Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (lives == 0)
+	else if (Otto->getPlayerLive() == 0)
 	{
 		StateManager::ChangeState(new EndState());
 	}
@@ -293,7 +293,7 @@ void GameState2::Enter() // Used for initialization.
 
 
 	m_objects.emplace("level", new TiledLevel(19, 25, 32, 32, "Assets/Data/Tiledata.txt", "Assets/Data/Level1.txt", "tiles"));
-	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 400, 200, 32, 32 }), 3);
+	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 400, 200, 32, 32 }, 3));
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - At the Gates.mp3", "bgm3");
 	SoundManager::SetMusicVolume(10);
@@ -427,7 +427,7 @@ void GameState3::Enter() // Used for initialization.
 
 
 	m_objects.emplace("level", new TiledLevel(19, 25, 32, 32, "Assets/Data/Tiledata.txt", "Assets/Data/Level1.txt", "tiles"));
-	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 400, 200, 32, 32 }), 3);
+	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 400, 200, 32, 32 }, 3));
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - The Lord Gives Chase.mp3", "bgm4");
 	SoundManager::SetMusicVolume(10);
