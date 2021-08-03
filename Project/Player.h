@@ -6,7 +6,7 @@
 class Player : public AnimatedSpriteObject
 {
 public:
-	Player(SDL_Rect sourceTransform, SDL_FRect destinationTransform, int live);
+	Player(SDL_Rect sourceTransform, SDL_FRect destinationTransform /*int live*/);
 	~Player();
 
 	// Life Cycle Methods
@@ -14,7 +14,7 @@ public:
 	virtual void Update(float deltaTime) override;
 	void SetX(float x) { m_destinationTransform.x = x; }
 	void SetY(float y) { m_destinationTransform.y = y; }
-	int getPlayerLive() { return playerLive; }
+	//int getPlayerLive() { return playerLive; }
 	void takeDamage(int dam);
 	int attack() { return attackValue; }
 	int getHealth() { return health; }
@@ -23,7 +23,7 @@ private:
 	enum class PlayerState { kIdle, kRunning, kAttacking };
 	bool m_facingLeft;
 	double speed = 0.25;
-	int playerLive;
+	//int playerLive;
 	int attackValue = 15;
 	int health = 100;
 	PlayerState m_state;

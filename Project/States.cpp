@@ -85,7 +85,6 @@ void GameState::Enter() // Used for initialization.
 	m_RectangleTransform.w = 60;
 	m_RectangleTransform.h = 100;
 
-	TextureManager::Load("Assets/Images/Tiles.png", "tiles");
 	TextureManager::Load("Assets/Images/grave.png", "grave");
 	TextureManager::Load("Assets/Images/3.png", "3h");
 	TextureManager::Load("Assets/Images/2.png", "2h");
@@ -93,9 +92,8 @@ void GameState::Enter() // Used for initialization.
 	TextureManager::Load("Assets/Images/health.png", "health");
 	TextureManager::Load("Assets/Images/key.png", "key");
 
-	/*m_objects.emplace("level", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level1 Data.txt", "Assets/Data/Level1.txt", "tiles"));*/
-	m_objects.emplace("level", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level2 Data.txt", "Assets/Data/Level2.txt", "grave"));
-	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 400, 200, 32, 32 }, 3));
+	m_objects.emplace("level1", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level1 Data.txt", "Assets/Data/Level1.txt", "grave"));
+	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 60, 32, 32, 32 }));
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - A Long Journey.mp3", "bgm2");
 	SoundManager::SetMusicVolume(10);
@@ -129,9 +127,9 @@ void GameState::Update(float deltaTime)
 
 		Player* pPlayer = static_cast<Player*>(m_objects["otto"]);
 
-		for (unsigned int i = 0; i < static_cast<TiledLevel*>(m_objects["level"])->GetObstacles().size(); i++)
+		for (unsigned int i = 0; i < static_cast<TiledLevel*>(m_objects["level1"])->GetObstacles().size(); i++)
 		{
-			SDL_FRect* obstacleColliderTransform = static_cast<TiledLevel*>(m_objects["level"])->GetObstacles()[i]->GetDestinationTransform();
+			SDL_FRect* obstacleColliderTransform = static_cast<TiledLevel*>(m_objects["level1"])->GetObstacles()[i]->GetDestinationTransform();
 
 			float obstacleLeft = obstacleColliderTransform->x;
 			float obstacleRight = obstacleColliderTransform->x + obstacleColliderTransform->w;
@@ -174,7 +172,13 @@ void GameState::Update(float deltaTime)
 				}
 			}
 		}
-		
+		if (m_objects["otto"]->GetDestinationTransform()->x == 704 && 
+			m_objects["otto"]->GetDestinationTransform()->y == 320)
+			//AND THEY HAVE GOTTEN THE KEY//
+		{
+			GameState::Exit();
+			StateManager::ChangeState(new GameState2);
+		}
 	}
 }
 
@@ -182,42 +186,39 @@ void GameState::Render()
 {
 	SDL_Renderer* pRenderer = Game::GetInstance().GetRenderer();
 
-	SDL_SetRenderDrawColor(pRenderer, 61, 37, 59, 225);
+	SDL_SetRenderDrawColor(pRenderer, 58, 89, 65, 225);
 	SDL_RenderClear(pRenderer);
 
 	for (auto const& i : m_objects)
 		i.second->Render();
 
 	///////////LIVES///////////////
-	SDL_FRect* playerPos = m_objects["otto"]->GetDestinationTransform();
-	const SDL_Rect m_h1Src = { 0, 0, 25, 25 };
-	const SDL_Rect m_h2Src = { 0, 0, 50, 25 };
-	const SDL_Rect m_h3Src = { 0, 0, 75, 25 };
-	const SDL_FRect m_h1Dst = { 625, 8, 25, 25 };
-	const SDL_FRect m_h2Dst = { 650 , 8, 50, 25 };
-	const SDL_FRect m_h3Dst = { 675, 8, 75, 25 };
-	if (Otto->getPlayerLive() == 3)
-	{
-		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
-			TextureManager::GetTexture("3h"), &m_h3Src, &m_h3Dst, 0, 0, SDL_FLIP_NONE);
-	}
-	else if (Otto->getPlayerLive() == 2)
-	{
-		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
-			TextureManager::GetTexture("2h"), &m_h2Src, &m_h2Dst, 0, 0, SDL_FLIP_NONE);
-	}
-	else if (Otto->getPlayerLive() == 1)
-	{
-		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
-			TextureManager::GetTexture("1h"), &m_h1Src, &m_h1Dst, 0, 0, SDL_FLIP_NONE);
-	}
-	else if (Otto->getPlayerLive() == 0)
-	{
-		StateManager::ChangeState(new EndState());
-	}
-	//////////////////////////////////
-
-
+	//SDL_FRect* playerPos = m_objects["otto"]->GetDestinationTransform();
+	//const SDL_Rect m_h1Src = { 0, 0, 25, 25 };
+	//const SDL_Rect m_h2Src = { 0, 0, 50, 25 };
+	//const SDL_Rect m_h3Src = { 0, 0, 75, 25 };
+	//const SDL_FRect m_h1Dst = { 625, 8, 25, 25 };
+	//const SDL_FRect m_h2Dst = { 650 , 8, 50, 25 };
+	//const SDL_FRect m_h3Dst = { 675, 8, 75, 25 };
+	//if (Otto->getPlayerLive() == 3)
+	//{
+	//	SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+	//		TextureManager::GetTexture("3h"), &m_h3Src, &m_h3Dst, 0, 0, SDL_FLIP_NONE);
+	//}
+	//else if (Otto->getPlayerLive() == 2)
+	//{
+	//	SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+	//		TextureManager::GetTexture("2h"), &m_h2Src, &m_h2Dst, 0, 0, SDL_FLIP_NONE);
+	//}
+	//else if (Otto->getPlayerLive() == 1)
+	//{
+	//	SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+	//		TextureManager::GetTexture("1h"), &m_h1Src, &m_h1Dst, 0, 0, SDL_FLIP_NONE);
+	//}
+	//else if (Otto->getPlayerLive() == 0)
+	//{
+	//	StateManager::ChangeState(new EndState());
+	//}
 }
 
 void GameState::Exit()
@@ -291,9 +292,8 @@ void GameState2::Enter() // Used for initialization.
 	TextureManager::Load("Assets/Images/Tiles.png", "tiles");
 	TextureManager::Load("Assets/Images/Player.png", "player");
 
-
-	m_objects.emplace("level", new TiledLevel(19, 25, 32, 32, "Assets/Data/Tiledata.txt", "Assets/Data/Level1.txt", "tiles"));
-	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 400, 200, 32, 32 }, 3));
+	m_objects.emplace("level2", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level2 Data.txt", "Assets/Data/Level2.txt", "tiles"));
+	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 32, 512, 32, 32 }));
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - At the Gates.mp3", "bgm3");
 	SoundManager::SetMusicVolume(10);
@@ -327,9 +327,9 @@ void GameState2::Update(float deltaTime)
 
 		Player* pPlayer = static_cast<Player*>(m_objects["otto"]);
 
-		for (unsigned int i = 0; i < static_cast<TiledLevel*>(m_objects["level"])->GetObstacles().size(); i++)
+		for (unsigned int i = 0; i < static_cast<TiledLevel*>(m_objects["level2"])->GetObstacles().size(); i++)
 		{
-			SDL_FRect* obstacleColliderTransform = static_cast<TiledLevel*>(m_objects["level"])->GetObstacles()[i]->GetDestinationTransform();
+			SDL_FRect* obstacleColliderTransform = static_cast<TiledLevel*>(m_objects["level2"])->GetObstacles()[i]->GetDestinationTransform();
 
 			float obstacleLeft = obstacleColliderTransform->x;
 			float obstacleRight = obstacleColliderTransform->x + obstacleColliderTransform->w;
@@ -427,7 +427,7 @@ void GameState3::Enter() // Used for initialization.
 
 
 	m_objects.emplace("level", new TiledLevel(19, 25, 32, 32, "Assets/Data/Tiledata.txt", "Assets/Data/Level1.txt", "tiles"));
-	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 400, 200, 32, 32 }, 3));
+	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 400, 200, 32, 32 }));
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - The Lord Gives Chase.mp3", "bgm4");
 	SoundManager::SetMusicVolume(10);
