@@ -11,6 +11,7 @@
 #include "PlayButton.h"
 #include "Background.h"
 #include "Player.h"
+#include "Enemy.h"
 
 ////////////////////////////////////////////
 // Begin TitleState ////////////////////////
@@ -82,7 +83,7 @@ void GameState::Enter() // Used for initialization.
 	m_RectangleTransform.h = 100;
 
 	TextureManager::Load("Assets/Images/Tiles.png", "tiles");
-	TextureManager::Load("Assets/Images/Player.png", "player");
+//	TextureManager::Load("Assets/Images/Player.png", "player");
 
 
 	m_objects.emplace("level", new TiledLevel(19, 25, 32, 32, "Assets/Data/Tiledata.txt", "Assets/Data/Level1.txt", "tiles"));
