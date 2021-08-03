@@ -18,7 +18,7 @@ public:
 private:
 	enum class PlayerState { kIdle, kRunning, kAttacking };
 	bool m_facingLeft;
-	double speed = 0.5;
+	double speed = 0.25;
 	PlayerState m_state;
 };
 

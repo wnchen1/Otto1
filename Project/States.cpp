@@ -145,28 +145,20 @@ void GameState::Update(float deltaTime)
 			 //then they truly overlap.
 			if (xOverlap && yOverlap)
 			{
-				 //Top collision
 				if (topCollision < bottomCollision && topCollision < leftCollision && topCollision < rightCollision)
 				{
-					std::cout << "top";
 					pPlayer->SetY(playerColliderTransform->y - topCollision);
 				}
-				 //Bottom collision
 				if (bottomCollision < topCollision && bottomCollision < leftCollision && bottomCollision < rightCollision)
 				{
-					std::cout << "bottom";
 					pPlayer->SetY(playerColliderTransform->y + bottomCollision);
 				}
-				 //Left collision
 				if (leftCollision < rightCollision && leftCollision < topCollision && leftCollision < bottomCollision)
 				{
-					std::cout << "left";
 					pPlayer->SetX(playerColliderTransform->x - leftCollision);
 				}
-				 //Right collision
 				if (rightCollision < leftCollision && rightCollision < topCollision && rightCollision < bottomCollision)
 				{
-					std::cout << "right";
 					pPlayer->SetX(playerColliderTransform->x + rightCollision);
 				}
 			}
