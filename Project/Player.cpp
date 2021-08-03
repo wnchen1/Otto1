@@ -15,6 +15,7 @@ Player::Player(SDL_Rect sourceTransform, SDL_FRect destinationTransform)
 	SetAnimation(0.1, 0, 13, 0);
 
 //SOUNDS FOR PLAYER
+	SoundManager::SetSoundVolume(5);
 	SoundManager::LoadSound("Assets/Sound/Effects/sword.mp3", "sword");
 	SoundManager::LoadSound("Assets/Sound/Effects/walk.mp3", "walk");
 }

@@ -223,6 +223,7 @@ xcopy "$(ProjectDir)assets" "$(OutDir)Assets" /s /e /i /y
   <ItemGroup>
     <ClCompile Include="AnimatedSpriteObject.cpp" />
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -239,6 +240,7 @@ xcopy "$(ProjectDir)assets" "$(OutDir)Assets" /s /e /i /y
   <ItemGroup>
     <ClInclude Include="AnimatedSpriteObject.h" />
     <ClInclude Include="Background.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
