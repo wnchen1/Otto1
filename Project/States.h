@@ -52,3 +52,36 @@ public:
 	virtual void Render() override;
 	virtual void Exit() override;
 };
+
+class GameState2 : public State
+{
+
+public:
+	virtual void Enter() override;
+	virtual void Update(float deltaTime) override;
+	virtual void Render() override;
+	virtual void Exit() override;
+	virtual void Resume() override;
+	virtual void Pause() override;
+};
+
+class GameState3 : public State
+{
+
+public:
+	virtual void Enter() override;
+	virtual void Update(float deltaTime) override;
+	virtual void Render() override;
+	virtual void Exit() override;
+	virtual void Resume() override;
+	virtual void Pause() override;
+};
+
+class EndState : public State
+{
+public:
+	virtual void Enter() override;
+	virtual void Update(float deltaTime) override;
+	virtual void Render() override;
+	virtual void Exit() override;
+};
