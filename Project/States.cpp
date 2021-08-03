@@ -19,7 +19,7 @@ void TitleState::Enter()
 {
 	std::cout << "Entering TitleState..." << std::endl;
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - The Invitation.mp3", "bgm1");
-	SoundManager::SetMusicVolume(50);
+	SoundManager::SetMusicVolume(20);
 	SoundManager::PlayMusic("bgm1");
 
 	TextureManager::Load("Assets/Images/Buttons/play.png", "play");
@@ -90,7 +90,7 @@ void GameState::Enter() // Used for initialization.
 	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 400, 200, 32, 32 }));
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - A Long Journey.mp3", "bgm2");
-	SoundManager::SetMusicVolume(40);
+	SoundManager::SetMusicVolume(10);
 	SoundManager::PlayMusic("bgm2");
 }
 
@@ -261,7 +261,7 @@ void GameState2::Enter() // Used for initialization.
 	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 400, 200, 32, 32 }));
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - At the Gates.mp3", "bgm3");
-	SoundManager::SetMusicVolume(40);
+	SoundManager::SetMusicVolume(10);
 	SoundManager::PlayMusic("bgm3");
 }
 
@@ -395,7 +395,7 @@ void GameState3::Enter() // Used for initialization.
 	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 400, 200, 32, 32 }));
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - The Lord Gives Chase", "bgm4");
-	SoundManager::SetMusicVolume(40);
+	SoundManager::SetMusicVolume(10);
 	SoundManager::PlayMusic("bgm4");
 }
 
@@ -521,7 +521,7 @@ void EndState::Enter()
 {
 	std::cout << "Entering EndState..." << std::endl;
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - A New Day", "bgm5");
-	SoundManager::SetMusicVolume(50);
+	SoundManager::SetMusicVolume(20);
 	SoundManager::PlayMusic("bgm5");
 
 	TextureManager::Load("Assets/Images/Buttons/play.png", "play");
