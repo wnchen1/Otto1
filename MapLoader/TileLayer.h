@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include "Layer.h"
-#include "Vector2D.h"
 
 struct Tileset{
     int FirstID, LastID;
