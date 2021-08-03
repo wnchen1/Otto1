@@ -96,7 +96,7 @@ void GameState::Enter() // Used for initialization.
 	Otto = new Player({ 0, 0, 64, 64 }, { 60, 32, 32, 32 }, 3);
 	m_objects.emplace("otto", Otto);
 	//Enemies 6 
-	m_objects.emplace("enemy", new Enemy({ 0, 0, 64, 64 }, { 125, 32, 32, 32 }, 100, 15));
+	m_objects.emplace("nightb", new Enemy({ 0, 0, 64, 64 }, { 125, 32, 32, 32 }, 100, 15));
 	
 	
 

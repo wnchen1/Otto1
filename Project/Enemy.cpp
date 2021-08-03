@@ -13,7 +13,7 @@ Enemy::Enemy(SDL_Rect sourceTransform, SDL_FRect destinationTransform, int hP, i
 	m_facingLeft(false),
 	m_attack(false)
 {
-	TextureManager::Load("Assets/Images/NightBorne.png", "enemy");
+	TextureManager::Load("Assets/Images/NightBorne.png", "nightb");
 
 	SetAnimation(0.1, 0, 9, 0);
 
@@ -27,7 +27,7 @@ Enemy::~Enemy()
 
 void Enemy::Render()
 {
-	SDL_RenderCopyExF(Game::GetInstance().GetRenderer(), TextureManager::GetTexture("slime"),
+	SDL_RenderCopyExF(Game::GetInstance().GetRenderer(), TextureManager::GetTexture("nightb"),
 		&m_sourceTransform, &m_destinationTransform, 0.0, nullptr, (m_facingLeft ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
 }
 
@@ -37,7 +37,7 @@ void Enemy::Update(float deltaTime)
 	{
 	case EnemyState::kIdle:
 		AnimatedSpriteObject::Update(deltaTime);
-		SetAnimation(0.1f, 0, 9, 0);
+	//	SetAnimation(0.1f, 0, 9, 0);
 	}
 	
 
