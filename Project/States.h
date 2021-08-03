@@ -3,6 +3,7 @@
 #include <map>
 #include <string>
 
+class Player;
 class GameObject;
 
 class State // This is the abstract base class for all states
@@ -17,7 +18,7 @@ public:
 	virtual void Exit() = 0;
 	virtual void Pause() { }
 	virtual void Resume() { }
-
+	Player* Otto;
 	std::map<std::string, GameObject*> m_objects;
 };
 

@@ -5,10 +5,11 @@
 #include "EventManager.h"
 #include "SoundManager.h"
 
-Player::Player(SDL_Rect sourceTransform, SDL_FRect destinationTransform)
-	: AnimatedSpriteObject(sourceTransform, destinationTransform),
+Player::Player(SDL_Rect sourceTransform, SDL_FRect destinationTransform, int live)
+	:playerLive(live), AnimatedSpriteObject(sourceTransform, destinationTransform),
 	m_state(PlayerState::kIdle),
 	m_facingLeft(false)
+	
 {
 	TextureManager::Load("Assets/Images/otto.png", "otto");
 
@@ -122,6 +123,16 @@ void Player::Update(float deltaTime)
 		}
 	}
 	AnimatedSpriteObject::Update(deltaTime);
+}
+
+void Player::takeDamage(int dam)
+{
+	health -= dam;
+	if(health <= 0)
+	{
+		health = 100;
+		playerLive--;
+	}
 }
 
 
