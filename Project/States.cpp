@@ -89,6 +89,8 @@ void GameState::Enter() // Used for initialization.
 	TextureManager::Load("Assets/Images/3.png", "3h");
 	TextureManager::Load("Assets/Images/2.png", "2h");
 	TextureManager::Load("Assets/Images/1.png", "1h");
+	TextureManager::Load("Assets/Images/health.png", "health");
+	TextureManager::Load("Assets/Images/key.png", "key");
 
 	m_objects.emplace("level", new TiledLevel(19, 25, 32, 32, "Assets/Data/Tiledata.txt", "Assets/Data/Level1.txt", "tiles"));
 	m_objects.emplace("otto", new Player({ 0, 0, 64, 64 }, { 400, 200, 32, 32 }));
@@ -170,6 +172,7 @@ void GameState::Update(float deltaTime)
 				}
 			}
 		}
+		
 	}
 }
 
@@ -206,7 +209,13 @@ void GameState::Render()
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("1h"), &m_h1Src, &m_h1Dst, 0, 0, SDL_FLIP_NONE);
 	}
+	else if (lives == 0)
+	{
+		StateManager::ChangeState(new EndState());
+	}
 	//////////////////////////////////
+
+
 }
 
 void GameState::Exit()
