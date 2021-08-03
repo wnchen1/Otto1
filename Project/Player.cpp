@@ -3,6 +3,7 @@
 #include "States.h"
 #include "Game.h"
 #include "EventManager.h"
+#include "SoundManager.h"
 
 Player::Player(SDL_Rect sourceTransform, SDL_FRect destinationTransform)
 	: AnimatedSpriteObject(sourceTransform, destinationTransform),
@@ -14,8 +15,8 @@ Player::Player(SDL_Rect sourceTransform, SDL_FRect destinationTransform)
 	SetAnimation(0.1, 0, 13, 0);
 
 //SOUNDS FOR PLAYER
-
-	
+	SoundManager::LoadSound("Assets/Sound/Effects/sword.mp3", "sword");
+	SoundManager::LoadSound("Assets/Sound/Effects/walk.mp3", "walk");
 }
 
 Player::~Player()
@@ -43,6 +44,7 @@ void Player::Update(float deltaTime)
 		{
 			m_state = PlayerState::kAttacking;
 			SetAnimation(0.1f, 0, 10, 128);
+			SoundManager::PlaySound("sword");
 		}
 		break;
 
@@ -56,11 +58,15 @@ void Player::Update(float deltaTime)
 			m_destinationTransform.y -= speed;
 			if (!m_facingLeft)
 				m_facingLeft = true;
+
+			SoundManager::PlaySound("walk");
 		}
 		else if (EventManager::KeyHeld(SDL_SCANCODE_A) /*&& m_destinationTransform.x > 0*/)
 		{
 			/*m_accelX = -s_kAccelerationX;*/
 			
+			SoundManager::PlaySound("walk");
+
 			m_destinationTransform.x -= speed;
 			if (!m_facingLeft)
 				m_facingLeft = true;
@@ -68,6 +74,7 @@ void Player::Update(float deltaTime)
 		else if (EventManager::KeyHeld(SDL_SCANCODE_S) /*&& m_destinationTransform.x
 			< Game::kHeight - m_destinationTransform.y*/)
 		{	
+			SoundManager::PlaySound("walk");
 			m_destinationTransform.y += speed;
 			if (m_facingLeft)
 				m_facingLeft = false;
@@ -75,6 +82,7 @@ void Player::Update(float deltaTime)
 		else if (EventManager::KeyHeld(SDL_SCANCODE_D) /*&& m_destinationTransform.x
 			< Game::kWidth - m_destinationTransform.w*/)
 		{
+			SoundManager::PlaySound("walk");
 			m_destinationTransform.x += speed;
 			if (m_facingLeft)
 				m_facingLeft = false;
@@ -91,6 +99,7 @@ void Player::Update(float deltaTime)
 		{
 			m_state = PlayerState::kAttacking;
 			SetAnimation(0.1f, 0, 10, 128);
+			SoundManager::PlaySound("sword");
 		}
 		break;
 
