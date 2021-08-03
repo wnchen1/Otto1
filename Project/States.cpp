@@ -82,6 +82,8 @@ void GameState::Enter() // Used for initialization.
 
 	TextureManager::Load("Assets/Images/Tiles.png", "tiles");
 	TextureManager::Load("Assets/Images/Player.png", "player");
+	TextureManager::Load("Assets/Images/health.png", "health");
+	TextureManager::Load("Assets/Images/key.png", "key");
 
 
 	m_objects.emplace("level", new TiledLevel(19, 25, 32, 32, "Assets/Data/Tiledata.txt", "Assets/Data/Level1.txt", "tiles"));
