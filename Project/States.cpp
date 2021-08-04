@@ -97,7 +97,7 @@ void GameState::Enter() // Used for initialization.
 	m_objects.emplace("otto", Otto);
 	//Enemies 6 
 	m_objects.emplace("nightb", new Enemy({ 0, 0, 80, 80 }, { 125, 32, 64, 64 }, 100, 15));
-
+	m_key = new Collectables({ 0, 0, 32,32 }, { 150, 150, 32,32 }, CollectableType::key);
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - A Long Journey.mp3", "bgm2");
 	SoundManager::SetMusicVolume(10);
 	SoundManager::PlayMusic("bgm2");
