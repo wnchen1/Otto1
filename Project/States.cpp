@@ -243,7 +243,7 @@ void GameState::Exit()
 	std::cout << "Exiting GameState..." << std::endl;
 
 	TextureManager::Unload("tiles");
-	TextureManager::Unload("player");
+	TextureManager::Unload("otto");
 	for (auto& i : m_objects)
 	{
 		delete i.second;
@@ -307,7 +307,6 @@ void GameState2::Enter() // Used for initialization.
 	std::cout << "Entering GameState..." << std::endl;
 
 	TextureManager::Load("Assets/Images/Tiles.png", "tiles");
-	TextureManager::Load("Assets/Images/Player.png", "player");
 
 	m_objects.emplace("level2", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level2 Data.txt", "Assets/Data/Level2.txt", "tiles"));
 	Otto = new Player({ 0, 0, 64, 64 }, { 32, 512, 32, 32 }, 3);
@@ -458,7 +457,7 @@ void GameState2::Exit()
 	std::cout << "Exiting GameState..." << std::endl;
 
 	TextureManager::Unload("tiles");
-	TextureManager::Unload("player");
+	TextureManager::Unload("otto");
 	for (auto& i : m_objects)
 	{
 		delete i.second;
@@ -490,10 +489,9 @@ void GameState3::Enter() // Used for initialization.
 	std::cout << "Entering GameState..." << std::endl;
 
 	TextureManager::Load("Assets/Images/Tiles.png", "tiles");
-	TextureManager::Load("Assets/Images/Player.png", "player");
 
 	m_objects.emplace("level3", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level3 Data.txt", "Assets/Data/Level3.txt", "tiles"));
-	Otto = new Player({ 0, 0, 64, 64 }, { 32, 512, 32, 32 }, 3);
+	Otto = new Player({ 0, 0, 64, 64 }, { 32, 544, 32, 32 }, 3);
 	m_objects.emplace("otto", Otto);
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - The Lord Gives Chase.mp3", "bgm4");
@@ -633,7 +631,7 @@ void GameState3::Exit()
 	std::cout << "Exiting GameState..." << std::endl;
 
 	TextureManager::Unload("tiles");
-	TextureManager::Unload("player");
+	TextureManager::Unload("otto");
 	for (auto& i : m_objects)
 	{
 		delete i.second;
