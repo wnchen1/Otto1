@@ -18,12 +18,12 @@ public:
 	void takeDamage(int dam);
 	int attack() { return attackValue; }
 	int getHealth() { return health; }
+	int playerLives;
 
 private:
 	enum class PlayerState { kIdle, kRunning, kAttacking };
 	bool m_facingLeft;
 	double speed = 0.5;
-	int playerLives;
 	int attackValue = 15;
 	int health = 100;
 	PlayerState m_state;
