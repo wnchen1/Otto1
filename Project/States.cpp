@@ -491,7 +491,7 @@ void GameState3::Enter() // Used for initialization.
 	TextureManager::Load("Assets/Images/Tiles.png", "tiles");
 
 	m_objects.emplace("level3", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level3 Data.txt", "Assets/Data/Level3.txt", "tiles"));
-	Otto = new Player({ 0, 0, 64, 64 }, { 40, 300, 32, 32 }, 3);
+	Otto = new Player({ 0, 0, 64, 64 }, { 32, 544, 32, 32 }, 3);
 	m_objects.emplace("otto", Otto);
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - The Lord Gives Chase.mp3", "bgm4");
