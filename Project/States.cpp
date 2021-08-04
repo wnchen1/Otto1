@@ -105,9 +105,21 @@ void GameState::Enter() // Used for initialization.
 
 void GameState::Update(float deltaTime)
 {
-	if (EventManager::KeyPressed(SDL_SCANCODE_X))
+	if (EventManager::KeyPressed(SDL_SCANCODE_F1))
 	{
-		StateManager::ChangeState(new TitleState()); // Change to new TitleState
+		StateManager::ChangeState(new TitleState());
+	}
+	else if (EventManager::KeyPressed(SDL_SCANCODE_F2))
+	{
+		StateManager::ChangeState(new GameState());
+	}
+	else if (EventManager::KeyPressed(SDL_SCANCODE_F3))
+	{
+		StateManager::ChangeState(new GameState2());
+	}
+	else if (EventManager::KeyPressed(SDL_SCANCODE_F4))
+	{
+		StateManager::ChangeState(new GameState3());
 	}
 	else if (EventManager::KeyPressed(SDL_SCANCODE_P))
 	{
@@ -308,9 +320,21 @@ void GameState2::Enter() // Used for initialization.
 void GameState2::Update(float deltaTime)
 {
 	std::cout << m_objects["otto"]->GetDestinationTransform()->x << "," << m_objects["otto"]->GetDestinationTransform()->y << std::endl;
-	if (EventManager::KeyPressed(SDL_SCANCODE_X))
+	if (EventManager::KeyPressed(SDL_SCANCODE_F1))
 	{
-		StateManager::ChangeState(new TitleState()); // Change to new TitleState
+		StateManager::ChangeState(new TitleState());
+	}
+	else if (EventManager::KeyPressed(SDL_SCANCODE_F2))
+	{
+		StateManager::ChangeState(new GameState());
+	}
+	else if (EventManager::KeyPressed(SDL_SCANCODE_F3))
+	{
+		StateManager::ChangeState(new GameState2());
+	}
+	else if (EventManager::KeyPressed(SDL_SCANCODE_F4))
+	{
+		StateManager::ChangeState(new GameState3());
 	}
 	else if (EventManager::KeyPressed(SDL_SCANCODE_P))
 	{
@@ -477,9 +501,21 @@ void GameState3::Enter() // Used for initialization.
 
 void GameState3::Update(float deltaTime)
 {
-	if (EventManager::KeyPressed(SDL_SCANCODE_X))
+	if (EventManager::KeyPressed(SDL_SCANCODE_F1))
 	{
-		StateManager::ChangeState(new TitleState()); // Change to new TitleState
+		StateManager::ChangeState(new TitleState());
+	}
+	else if (EventManager::KeyPressed(SDL_SCANCODE_F2))
+	{
+		StateManager::ChangeState(new GameState());
+	}
+	else if (EventManager::KeyPressed(SDL_SCANCODE_F3))
+	{
+		StateManager::ChangeState(new GameState2());
+	}
+	else if (EventManager::KeyPressed(SDL_SCANCODE_F4))
+	{
+		StateManager::ChangeState(new GameState3());
 	}
 	else if (EventManager::KeyPressed(SDL_SCANCODE_P))
 	{
