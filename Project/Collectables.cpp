@@ -6,7 +6,8 @@
 
 Collectables::Collectables(SDL_Rect source, SDL_FRect destination, CollectableType item) : SpriteObject(source, destination)
 {
-	switch (item)
+	m_type = item;
+	switch (m_type)
 	{
 	case key:
 		TextureManager::Load("Assets/Images/key.png", "key");
@@ -25,5 +26,13 @@ void Collectables::Update(float deltaTime)
 
 void Collectables::Render()
 {
-	SDL_RenderCopyExF(Game::GetInstance().GetRenderer(), TextureManager::GetTexture("key"), GetSourceTransform(), GetDestinationTransform(), 0.0, nullptr, SDL_FLIP_NONE);
+	switch (m_type)
+	{
+	case key:
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(), TextureManager::GetTexture("key"), GetSourceTransform(), GetDestinationTransform(), 0.0, nullptr, SDL_FLIP_NONE);
+		break;
+	case key2:
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(), TextureManager::GetTexture("key"), GetSourceTransform(), GetDestinationTransform(), 0.0, nullptr, SDL_FLIP_NONE);
+		break;
+	}
 }
