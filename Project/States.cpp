@@ -206,7 +206,7 @@ void GameState::Render()
 
 	for (auto const& i : m_objects)
 		i.second->Render();
-
+	m_key->Render();
 	///////////LIVES///////////////
 	SDL_FRect* playerPos = m_objects["otto"]->GetDestinationTransform();
 	int ottoX = playerPos->x;
