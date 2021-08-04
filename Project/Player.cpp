@@ -55,8 +55,6 @@ void Player::Update(float deltaTime)
 	case PlayerState::kRunning:
 		if (EventManager::KeyHeld(SDL_SCANCODE_W) /*&& m_destinationTransform.y > 0*/)
 		{
-			/*m_accelX = -s_kAccelerationX;*/
-
 			m_destinationTransform.y -= speed;
 			if (!m_facingLeft)
 				m_facingLeft = true;
@@ -65,10 +63,7 @@ void Player::Update(float deltaTime)
 		}
 		else if (EventManager::KeyHeld(SDL_SCANCODE_A) /*&& m_destinationTransform.x > 0*/)
 		{
-			/*m_accelX = -s_kAccelerationX;*/
-			
 			SoundManager::PlaySound("walk");
-
 			m_destinationTransform.x -= speed;
 			if (!m_facingLeft)
 				m_facingLeft = true;
