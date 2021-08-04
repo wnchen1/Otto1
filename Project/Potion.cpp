@@ -4,10 +4,24 @@
 #include "Player.h"
 #include "Game.h"
 
-Potion::Potion(SDL_Rect sourceTransform, SDL_FRect destinationTransform)
+Potion::Potion(SDL_Rect sourceTransform, SDL_FRect destinationTransform, potionNumber num)
 {
-	TextureManager::Load("Assets/Images/health.png", "potion");
-	////////////Sounds
+	pNum = num;
+	switch (pNum)
+	{
+	case p1:
+		TextureManager::Load("Assets/Images/health.png", "potion");
+		break;
+	case p2:
+		TextureManager::Load("Assets/Images/health.png", "potion");
+		break;
+	case p3:
+		TextureManager::Load("Assets/Images/health.png", "potion");
+		break;
+	case p4:
+		TextureManager::Load("Assets/Images/health.png", "potion");
+		break;
+	}
 }
 
 Potion::~Potion()
@@ -19,7 +33,7 @@ void Potion::Use()
 	pOtto->GainLife();
 }
 
-void Potion::Update()
+void Potion::Update(float deltaTime)
 {
 	if (EventManager::KeyPressed(SDL_SCANCODE_E) && hasPotion == true)
 	{
@@ -29,6 +43,13 @@ void Potion::Update()
 
 void Potion::Render()
 {
-	SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
-		TextureManager::GetTexture("potion"), &m_potionSrc, &m_potionDst, 0, 0, SDL_FLIP_NONE);
+	switch (pNum)
+	{
+	case p1:
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(), TextureManager::GetTexture("potion"),
+			&m_sourceTransform, &m_destinationTransform, 0.0, nullptr, (m_facingLeft ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
+	case p2:
+	case p3:
+	case p4:
+	}
 }

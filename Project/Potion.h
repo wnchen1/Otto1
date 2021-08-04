@@ -1,18 +1,18 @@
 #pragma once
-#include "Gameobject.h"
+#include "SpriteObject.h"
 #include "Player.h"
 
-class Potion : public GameObject
+enum potionNumber {p1, p2, p3, p4};
+class Potion : public SpriteObject
 {
 public:
-	Potion(SDL_Rect sourceTransform, SDL_FRect destinationTransform);
-	~Potion();
+	Potion(SDL_Rect sourceTransform, SDL_FRect destinationTransform, potionNumber num);
+	~Potion() = default;
 	void Use();
-	void Update();
+	void Update(float deltaTime) override;
 	void Render() override;
 	bool hasPotion = false;
 private:
 	Player* pOtto;
-	const SDL_Rect m_potionSrc = { 0, 0, 32, 32 };
-	const SDL_FRect m_potionDst = { 0, 0, 32, 32 };
+	potionNumber pNum;
 };

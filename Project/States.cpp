@@ -13,6 +13,7 @@
 #include "Background.h"
 #include "Player.h"
 #include "Enemy.h"
+#include"Potion.h"
 
 ////////////////////////////////////////////
 // Begin TitleState ////////////////////////
@@ -89,8 +90,6 @@ void GameState::Enter() // Used for initialization.
 	TextureManager::Load("Assets/Images/3.png", "3h");
 	TextureManager::Load("Assets/Images/2.png", "2h");
 	TextureManager::Load("Assets/Images/1.png", "1h");
-	TextureManager::Load("Assets/Images/health.png", "health");
-	TextureManager::Load("Assets/Images/key.png", "key");
 
 	m_objects.emplace("level1", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level1 Data.txt", "Assets/Data/Level1.txt", "grave"));
 	Otto = new Player({ 0, 0, 64, 64 }, { 60, 32, 32, 32 }, 3);
