@@ -1,5 +1,6 @@
 #pragma once
 #include "Gameobject.h"
+#include "Player.h"
 
 class Potion : public GameObject
 {
@@ -9,7 +10,9 @@ public:
 	void Use();
 	void Update();
 	void Render() override;
-	bool hasPotion;
+	bool hasPotion = false;
 private:
 	Player* pOtto;
+	const SDL_Rect m_potionSrc = { 0, 0, 32, 32 };
+	const SDL_FRect m_potionDst = { 0, 0, 32, 32 };
 };

@@ -16,12 +16,12 @@ Potion::~Potion()
 
 void Potion::Use()
 {
-	pOtto->playerLives++;
+	pOtto->GainLife();
 }
 
 void Potion::Update()
 {
-	if (EventManager::KeyPressed(SDL_SCANCODE_P) && hasPotion == true)
+	if (EventManager::KeyPressed(SDL_SCANCODE_E) && hasPotion == true)
 	{
 		Potion::Use();
 	}
@@ -30,5 +30,5 @@ void Potion::Update()
 void Potion::Render()
 {
 	SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
-		TextureManager::GetTexture("potion"), &transform, &m_destinationTransform, 0, 0, SDL_FLIP_NONE);
+		TextureManager::GetTexture("potion"), &m_potionSrc, &m_potionDst, 0, 0, SDL_FLIP_NONE);
 }

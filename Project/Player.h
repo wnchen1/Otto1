@@ -18,7 +18,8 @@ public:
 	void takeDamage(int dam);
 	int attack() { return attackValue; }
 	int getHealth() { return health; }
-	int playerLives;
+	void GainLife() { playerLives++; }
+	void LoseLife() { playerLives--; }
 
 private:
 	enum class PlayerState { kIdle, kRunning, kAttacking };
@@ -26,6 +27,7 @@ private:
 	double speed = 0.5;
 	int attackValue = 15;
 	int health = 100;
+	int playerLives;
 	PlayerState m_state;
 };
 

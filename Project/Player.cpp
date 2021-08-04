@@ -42,7 +42,7 @@ void Player::Update(float deltaTime)
 			m_state = PlayerState::kRunning;
 			SetAnimation(0.1f, 0, 8, 64);
 		}
-		else if (EventManager::KeyPressed(SDL_SCANCODE_E))
+		else if (EventManager::KeyPressed(SDL_SCANCODE_SPACE))
 		{
 			m_state = PlayerState::kAttacking;
 			SetAnimation(0.1f, 0, 10, 128);
@@ -87,12 +87,12 @@ void Player::Update(float deltaTime)
 
 		else if (!EventManager::KeyHeld(SDL_SCANCODE_W) && !EventManager::KeyHeld(SDL_SCANCODE_A)
 			&& !EventManager::KeyHeld(SDL_SCANCODE_S) && !EventManager::KeyHeld(SDL_SCANCODE_D)
-			&& !EventManager::KeyHeld(SDL_SCANCODE_E))
+			&& !EventManager::KeyHeld(SDL_SCANCODE_SPACE))
 		{
 			m_state = PlayerState::kIdle;
 			SetAnimation(0.1f, 0, 13, 0);
 		}
-		else if (EventManager::KeyPressed(SDL_SCANCODE_E))
+		else if (EventManager::KeyPressed(SDL_SCANCODE_SPACE))
 		{
 			m_state = PlayerState::kAttacking;
 			SetAnimation(0.1f, 0, 10, 128);
@@ -111,7 +111,7 @@ void Player::Update(float deltaTime)
 		}
 		else if (!EventManager::KeyHeld(SDL_SCANCODE_W) && !EventManager::KeyHeld(SDL_SCANCODE_A)
 			&& !EventManager::KeyHeld(SDL_SCANCODE_S) && !EventManager::KeyHeld(SDL_SCANCODE_D)
-			&& !EventManager::KeyHeld(SDL_SCANCODE_E))
+			&& !EventManager::KeyHeld(SDL_SCANCODE_SPACE))
 		{
 			m_state = PlayerState::kIdle;
 			SetAnimation(0.1f, 0, 13, 0);
