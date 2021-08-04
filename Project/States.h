@@ -21,9 +21,8 @@ public:
 	virtual void Pause() { }
 	virtual void Resume() { }
 	Player* Otto;
-	Potion* potion;
-	
 	Collectables* m_key;
+	Collectables* m_potion;
 	
 	std::map<std::string, GameObject*> m_objects;
 };

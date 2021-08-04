@@ -1,7 +1,7 @@
 #pragma once
 #include "SpriteObject.h"
 
-enum CollectableType {key, key2};
+enum CollectableType {key, key2, p1,};
 class Collectables : public SpriteObject
 {
 private:

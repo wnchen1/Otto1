@@ -97,6 +97,7 @@ void GameState::Enter() // Used for initialization.
 	//Enemies 6 
 	m_objects.emplace("nightb", new Enemy({ 0, 0, 80, 80 }, { 125, 32, 64, 64 }, 100, 15));
 	m_key = new Collectables({ 0, 0, 32,32 }, { 150, 150, 32,32 }, CollectableType::key);
+	m_potion = new Collectables({ 0, 0, 32,32 }, { 110, 150, 32,32 }, CollectableType::p1);
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - A Long Journey.mp3", "bgm2");
 	SoundManager::SetMusicVolume(10);
 	SoundManager::PlayMusic("bgm2");
@@ -206,6 +207,7 @@ void GameState::Render()
 	for (auto const& i : m_objects)
 		i.second->Render();
 	m_key->Render();
+	m_potion->Render();
 	///////////LIVES///////////////
 	SDL_FRect* playerPos = m_objects["otto"]->GetDestinationTransform();
 	int ottoX = playerPos->x;

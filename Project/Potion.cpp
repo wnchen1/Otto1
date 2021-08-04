@@ -24,10 +24,6 @@ Potion::Potion(SDL_Rect sourceTransform, SDL_FRect destinationTransform, potionN
 	}
 }
 
-Potion::~Potion()
-{
-}
-
 void Potion::Use()
 {
 	pOtto->GainLife();
@@ -47,9 +43,19 @@ void Potion::Render()
 	{
 	case p1:
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(), TextureManager::GetTexture("potion"),
-			&m_sourceTransform, &m_destinationTransform, 0.0, nullptr, (m_facingLeft ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
+			&m_pSrc, &m_pDst, 0.0, nullptr, SDL_FLIP_NONE);
+		break;
 	case p2:
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(), TextureManager::GetTexture("potion"),
+			&m_pSrc, &m_pDst, 0.0, nullptr, SDL_FLIP_NONE);
+		break;
 	case p3:
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(), TextureManager::GetTexture("potion"),
+			&m_pSrc, &m_pDst, 0.0, nullptr, SDL_FLIP_NONE);
+		break;
 	case p4:
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(), TextureManager::GetTexture("potion"),
+			&m_pSrc, &m_pDst, 0.0, nullptr, SDL_FLIP_NONE);
+		break;
 	}
 }
