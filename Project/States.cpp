@@ -94,10 +94,14 @@ void GameState::Enter() // Used for initialization.
 	m_objects.emplace("level1", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level1 Data.txt", "Assets/Data/Level1.txt", "grave"));
 	Otto = new Player({ 0, 0, 64, 64 }, { 60, 32, 32, 32 }, 3);
 	m_objects.emplace("otto", Otto);
-	//Enemies 6 
-	m_objects.emplace("nightb", new Enemy({ 0, 0, 80, 80 }, { 125, 32, 64, 64 }, 100, 15));
-	m_key = new Collectables({ 0, 0, 32,32 }, { 150, 150, 32,32 }, CollectableType::key);
-	m_potion = new Collectables({ 0, 0, 32,32 }, { 110, 150, 32,32 }, CollectableType::p1);
+	//Enemies 6 // 
+	m_enemy.push_back(new Enemy({ 0, 0, 80, 80 }, { 350, 32, 64, 64 }, 100, 15, this));
+	m_collectables.push_back(new Collectables({ 0, 0, 32,32 }, { 150, 150, 32,32 }, CollectableType::key));
+	m_collectables.push_back(new Collectables({ 0, 0, 32,32 }, { 350, 50, 32,32 }, CollectableType::key));
+	m_collectables.push_back(new Collectables({ 0, 0, 32,32 }, { 350, 150, 32,32 }, CollectableType::key));
+	m_collectables.shrink_to_fit();
+
+	//m_potion = new Collectables({ 0, 0, 32,32 }, { 110, 150, 32,32 }, CollectableType::p1);
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - A Long Journey.mp3", "bgm2");
 	SoundManager::SetMusicVolume(10);
 	SoundManager::PlayMusic("bgm2");
@@ -130,6 +134,10 @@ void GameState::Update(float deltaTime)
 		for (auto const& i : m_objects)
 		{
 			i.second->Update(deltaTime);
+		}
+		for (auto i : m_enemy)
+		{
+			i->Update(deltaTime);
 		}
 		
 		 //Check collision.
@@ -164,7 +172,7 @@ void GameState::Update(float deltaTime)
 			float topCollision = playerBottom - obstacleColliderTransform->y;
 			float leftCollision = playerRight - obstacleColliderTransform->x;
 			float rightCollision = obstacleRight - playerColliderTransform->x;
-
+			//m_objects.erase(std::remove_if(m_objects.begin(), m_objects.end(), (Collectables key) = > {if m_key->GetDestinationTransform() == m_objects["otto"]->GetDestinationTransform()})
 			 //If they overlap both horizontally and vertically,
 			 //then they truly overlap.
 			if (xOverlap && yOverlap)
@@ -187,8 +195,29 @@ void GameState::Update(float deltaTime)
 				}
 			}
 		}
+		if (!m_collectables.empty())
+		{
+			
+			for (int i = 0; i < m_collectables.size(); i++)
+			{
+				SDL_Rect  collectable1 = { m_collectables[i]->GetDestinationTransform()->x, m_collectables[i]->GetDestinationTransform()->y, m_collectables[i]->GetDestinationTransform()->w, m_collectables[i]->GetDestinationTransform()->h };
+
+				SDL_Rect player = { m_objects["otto"]->GetDestinationTransform()->x, m_objects["otto"]->GetDestinationTransform()->y, m_objects["otto"]->GetDestinationTransform()->w, m_objects["otto"]->GetDestinationTransform()->h };
+
+				if (SDL_HasIntersection(&collectable1, &player))
+				{
+					delete m_collectables[i];
+					m_collectables[i] = nullptr;
+					m_collectables.erase(m_collectables.begin() + i);
+					m_collectables.shrink_to_fit();
+				}
+
+			}
+		}
+
+		
 		if (m_objects["otto"]->GetDestinationTransform()->x == 704 && 
-			m_objects["otto"]->GetDestinationTransform()->y == 320)
+			m_objects["otto"]->GetDestinationTransform()->y == 320 && m_collectables.empty())
 			//AND THEY HAVE GOTTEN THE KEY//
 		{
 			GameState::Exit();
@@ -206,8 +235,25 @@ void GameState::Render()
 
 	for (auto const& i : m_objects)
 		i.second->Render();
-	m_key->Render();
-	m_potion->Render();
+	if (!m_collectables.empty())
+	{
+		for (int i = 0; i < m_collectables.size(); i++)
+		{
+			m_collectables[i]->Render();
+		}
+	}
+	if (!m_enemy.empty())
+	{
+		for (int i = 0; i < m_enemy.size(); i++)
+		{
+			m_enemy[i]->Render();
+		}
+	}
+	
+	
+	
+	
+	//m_potion->Render();
 	///////////LIVES///////////////
 	SDL_FRect* playerPos = m_objects["otto"]->GetDestinationTransform();
 	int ottoX = playerPos->x;

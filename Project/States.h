@@ -20,11 +20,15 @@ public:
 	virtual void Exit() = 0;
 	virtual void Pause() { }
 	virtual void Resume() { }
+	SDL_FRect* getPlayerPosition() { return m_objects["otto"]->GetDestinationTransform(); }
 	Player* Otto;
 	Collectables* m_key;
+	Collectables* m_key2;
 	Collectables* m_potion;
 	
 	std::map<std::string, GameObject*> m_objects;
+	std::vector<Collectables*> m_collectables;
+	std::vector<Enemy*> m_enemy;
 };
 
 class TitleState : public State

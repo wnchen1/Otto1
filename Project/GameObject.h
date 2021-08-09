@@ -2,6 +2,7 @@
 
 #include <SDL.h>
 
+class State;
 class GameObject
 {
 public:
@@ -21,6 +22,8 @@ public:
 	SDL_FRect* GetDestinationTransform() { return &m_destinationTransform; }
 
 protected:
-	SDL_FRect m_destinationTransform; 
+	SDL_FRect m_destinationTransform;
+	
+	State* statepointer;
 };
 

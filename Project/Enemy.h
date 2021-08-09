@@ -2,11 +2,12 @@
 #ifndef __ENEMY__
 #define __ENEMY__
 #include "AnimatedSpriteObject.h"
-
+#include "States.h"
+enum EnemyState { Idle, Attack, Run, Die};
 class Enemy : public AnimatedSpriteObject
 {
 public:
-	Enemy(SDL_Rect sourceTransform, SDL_FRect destinationTransform, int health, int attackPower);
+	Enemy(SDL_Rect sourceTransform, SDL_FRect destinationTransform, int health, int attackPower, State* parent);
 	~Enemy();
 
 	// Life Cycle Methods
@@ -19,12 +20,13 @@ public:
 	int attack() { return attackValue; }
 	int getHealth() { return health; }
 private:
-	enum class EnemyState { kIdle, kAttacking, kDying };
+	//enum class EnemyState { kIdle, kAttacking, kDying };
 	bool m_facingLeft;
 	bool m_attack;
 	double speed = 0.25;
 	int attackValue;
 	int health;
+	SDL_FRect myPosition;
 	
 	EnemyState m_state;
 	
