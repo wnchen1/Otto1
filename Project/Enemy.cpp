@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "EventManager.h"
 #include "SoundManager.h"
+#include <iostream>
 
 Enemy::Enemy(SDL_Rect sourceTransform, SDL_FRect destinationTransform, int hP, int attP, State* parent) :
 
@@ -41,8 +42,7 @@ void Enemy::Update(float deltaTime)
 	//statepointer->getPlayerPosition()->x << std::endl; // m_destinationtransform;
 	SDL_Rect player = { statepointer->getPlayerPosition()->x, statepointer->getPlayerPosition()->y, statepointer->getPlayerPosition()->w, statepointer->getPlayerPosition()->h };
 	SDL_Rect enemy = { m_destinationTransform.x - 20, m_destinationTransform.y - 20, m_destinationTransform.w + 20, m_destinationTransform.h + 20 };
-	//SDL_RenderDrawRect(Game::GetInstance().GetRenderer(), &player);
-	//SDL_RenderDrawRect(Game::GetInstance().GetRenderer(), &enemy);*/
+	Wander();
 	switch (m_state)
 	{
 	case EnemyState::Idle:
@@ -57,12 +57,43 @@ void Enemy::Update(float deltaTime)
 		{
 			m_state = EnemyState::Idle;
 			SetAnimation(0.1, 0, 9, 0);
-
+			Wander();
 		}
 		break;
 	}
 	AnimatedSpriteObject::Update(deltaTime);
 
+}
+
+void Enemy::Wander()
+{ 
+	eCounter++;
+	if (eCounter > 300)
+	{
+		eCounter -= 300;
+	}
+	srand(time(NULL));
+	if (eCounter == 1)
+	{
+		roll = rand() % 4 + 1;
+	}
+
+	if (roll == 1)
+	{
+		m_destinationTransform.x -= .1;
+	}
+	else if (roll == 2)
+	{
+		m_destinationTransform.x += .1;
+	}
+	else if (roll == 3)
+	{
+		m_destinationTransform.y -= .1;
+	}
+	if (roll == 4)
+	{
+		m_destinationTransform.y += .1;
+	}
 }
 
 

@@ -11,5 +11,6 @@ ExitButton::ExitButton(SDL_Rect source, SDL_FRect destination, const char* textu
 
 void ExitButton::Execute()
 {
-	StateManager::ChangeState(new EndState());
+	Game::GetInstance().Quit();
+
 }
