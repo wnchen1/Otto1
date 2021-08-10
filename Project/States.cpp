@@ -109,6 +109,7 @@ void GameState::Enter() // Used for initialization.
 
 void GameState::Update(float deltaTime)
 {
+	frames++;
 	if (EventManager::KeyPressed(SDL_SCANCODE_F1))
 	{
 		StateManager::ChangeState(new TitleState());
@@ -222,11 +223,12 @@ void GameState::Update(float deltaTime)
 		const SDL_Rect enemy = {pEnemy->GetDestinationTransform()->x, pEnemy->GetDestinationTransform()->y, 
 		pEnemy->GetDestinationTransform()->w, pEnemy->GetDestinationTransform()->h};
 
-		if (SDL_HasIntersection(&player, &enemy) && EventManager::KeyHeld(SDL_SCANCODE_SPACE))
-		{
-		//DELETE ENEMY
-		}
-		else if (SDL_HasIntersection(&player, &enemy) && !EventManager::KeyHeld(SDL_SCANCODE_SPACE))
+		//if (SDL_HasIntersection(&player, &enemy) && EventManager::KeyHeld(SDL_SCANCODE_SPACE))
+		//{
+		////DELETE ENEMY
+		//}
+		std::cout << frames << std::endl;
+		if (SDL_HasIntersection(&player, &enemy) && !EventManager::KeyHeld(SDL_SCANCODE_SPACE) && frames % 400 == 0)
 		{
 			pPlayer->LoseLife();
 		}

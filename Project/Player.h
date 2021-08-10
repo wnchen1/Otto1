@@ -15,7 +15,6 @@ public:
 	void SetX(float x) { m_destinationTransform.x = x; }
 	void SetY(float y) { m_destinationTransform.y = y; }
 	int getPlayerLive() { return playerLives; }
-	void takeDamage(int dam);
 	int attack() { return attackValue; }
 	int getHealth() { return health; }
 	void GainLife() { playerLives++; }
