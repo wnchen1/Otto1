@@ -63,50 +63,6 @@ void Enemy::Update(float deltaTime)
 		break;
 	}
 	AnimatedSpriteObject::Update(deltaTime);
-
-	int enemyLeft = m_destinationTransform.x;
-	int enemyRight = m_destinationTransform.x + m_destinationTransform.w;
-	int enemyTop = m_destinationTransform.y;
-	int enemyBottom = m_destinationTransform.y + m_destinationTransform.h;
-
-	for (unsigned int i = 0; i < static_cast<TiledLevel*>(m_objects["level1"])->GetObstacles().size(); i++)
-	{
-		SDL_FRect* obstacleColliderTransform = static_cast<TiledLevel*>(m_objects["level1"])->GetObstacles()[i]->GetDestinationTransform();
-
-		float obstacleLeft = obstacleColliderTransform->x;
-		float obstacleRight = obstacleColliderTransform->x + obstacleColliderTransform->w;
-		float obstacleTop = obstacleColliderTransform->y;
-		float obstacleBottom = obstacleColliderTransform->y + obstacleColliderTransform->h;
-
-		bool xOverlap = enemyLeft < obstacleRight&& enemyRight > obstacleLeft;
-
-		bool yOverlap = enemyTop < obstacleBottom&& enemyBottom > obstacleTop;
-
-		float bottomCollision = obstacleBottom - m_destinationTransform.y;
-		float topCollision = enemyBottom - obstacleColliderTransform->y;
-		float leftCollision = enemyRight - obstacleColliderTransform->x;
-		float rightCollision = obstacleRight - m_destinationTransform.x;
-
-		if (xOverlap && yOverlap)
-		{
-			if (topCollision < bottomCollision && topCollision < leftCollision && topCollision < rightCollision)
-			{
-				SetY(m_destinationTransform.y - topCollision);
-			}
-			if (bottomCollision < topCollision && bottomCollision < leftCollision && bottomCollision < rightCollision)
-			{
-				SetY(m_destinationTransform.y + bottomCollision);
-			}
-			if (leftCollision < rightCollision && leftCollision < topCollision && leftCollision < bottomCollision)
-			{
-				SetX(m_destinationTransform.x - leftCollision);
-			}
-			if (rightCollision < leftCollision && rightCollision < topCollision && rightCollision < bottomCollision)
-			{
-				SetX(m_destinationTransform.x + rightCollision);
-			}
-		}
-	}
 }
 
 void Enemy::Wander()

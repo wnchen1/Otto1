@@ -142,16 +142,60 @@ void GameState::Update(float deltaTime)
 		}
 		
 		 //Check collision.
+		Player* pPlayer = static_cast<Player*>(m_objects["otto"]);
+		Enemy* pEnemy = m_enemy.front();
+
 		SDL_FRect* playerColliderTransform = m_objects["otto"]->GetDestinationTransform(); // Copies address of player m_dst.
+		SDL_FRect* enemyColliderTransform = pEnemy->GetDestinationTransform();
 
 		float playerLeft = playerColliderTransform->x;
 		float playerRight = playerColliderTransform->x + playerColliderTransform->w;
 		float playerTop = playerColliderTransform->y;
 		float playerBottom = playerColliderTransform->y + playerColliderTransform->h;
 
-		Player* pPlayer = static_cast<Player*>(m_objects["otto"]);
-		Enemy* pEnemy = m_enemy.front();
+		int enemyLeft = enemyColliderTransform->x;
+		int enemyRight = enemyColliderTransform->x + enemyColliderTransform->w;
+		int enemyTop = enemyColliderTransform->y;
+		int enemyBottom = enemyColliderTransform->y + enemyColliderTransform->h;
 
+		for (unsigned int i = 0; i < static_cast<TiledLevel*>(m_objects["level1"])->GetObstacles().size(); i++)
+		{
+			SDL_FRect* obstacleColliderTransform = static_cast<TiledLevel*>(m_objects["level1"])->GetObstacles()[i]->GetDestinationTransform();
+
+			float obstacleLeft = obstacleColliderTransform->x;
+			float obstacleRight = obstacleColliderTransform->x + obstacleColliderTransform->w;
+			float obstacleTop = obstacleColliderTransform->y;
+			float obstacleBottom = obstacleColliderTransform->y + obstacleColliderTransform->h;
+
+			bool xOverlap = enemyLeft < obstacleRight&& enemyRight > obstacleLeft;
+
+			bool yOverlap = enemyTop < obstacleBottom&& enemyBottom > obstacleTop;
+
+			float bottomCollision = obstacleBottom - enemyColliderTransform->y;
+			float topCollision = enemyBottom - obstacleColliderTransform->y;
+			float leftCollision = enemyRight - obstacleColliderTransform->x;
+			float rightCollision = obstacleRight - enemyColliderTransform->x;
+
+			if (xOverlap && yOverlap)
+			{
+				if (topCollision < bottomCollision && topCollision < leftCollision && topCollision < rightCollision)
+				{
+					pEnemy->SetY(enemyColliderTransform->y - topCollision);
+				}
+				if (bottomCollision < topCollision && bottomCollision < leftCollision && bottomCollision < rightCollision)
+				{
+					pEnemy->SetY(enemyColliderTransform->y + bottomCollision);
+				}
+				if (leftCollision < rightCollision && leftCollision < topCollision && leftCollision < bottomCollision)
+				{
+					pEnemy->SetX(enemyColliderTransform->x - leftCollision);
+				}
+				if (rightCollision < leftCollision && rightCollision < topCollision && rightCollision < bottomCollision)
+				{
+					pEnemy->SetX(enemyColliderTransform->x + rightCollision);
+				}
+			}
+		}
 		for (unsigned int i = 0; i < static_cast<TiledLevel*>(m_objects["level1"])->GetObstacles().size(); i++)
 		{
 			SDL_FRect* obstacleColliderTransform = static_cast<TiledLevel*>(m_objects["level1"])->GetObstacles()[i]->GetDestinationTransform();
@@ -197,6 +241,7 @@ void GameState::Update(float deltaTime)
 				}
 			}
 		}
+		
 		if (!m_collectables.empty())
 		{
 			
