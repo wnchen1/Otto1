@@ -728,7 +728,7 @@ void GameState3::Resume()
 void EndState::Enter()
 {
 	std::cout << "Entering EndState..." << std::endl;
-	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - A New Day.mp3", "bgm5");
+	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - An Ancient Relic.mp3", "bgm5");
 	SoundManager::SetMusicVolume(20);
 	SoundManager::PlayMusic("bgm5");
 
@@ -772,7 +772,7 @@ void EndState::Exit()
 	SoundManager::StopMusic();
 	SoundManager::UnloadMusic("bgm5");
 
-	TextureManager::Unload("gameover");
+	TextureManager::Unload("bg");
 	TextureManager::Unload("play");
 	TextureManager::Unload("exit");
 	for (auto& i : m_objects)
@@ -783,3 +783,64 @@ void EndState::Exit()
 	m_objects.clear();
 }
 // End EndState
+
+////////////////////////////////////////////
+// Begin WinState ////////////////////////
+void WinState::Enter()
+{
+	std::cout << "Entering WinState..." << std::endl;
+	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - A New Day.mp3", "bgm6");
+	SoundManager::SetMusicVolume(20);
+	SoundManager::PlayMusic("bgm6");
+
+	TextureManager::Load("Assets/Images/Buttons/play.png", "play");
+	TextureManager::Load("Assets/Images/Buttons/exit.png", "exit");
+	TextureManager::Load("Assets/Images/win.png", "bg");
+
+	int buttonWidth = 400;
+	int buttonHeight = 100;
+	float buttonX = Game::GetInstance().kWidth / 2 - buttonWidth / 2.0f;
+	float buttonY = Game::GetInstance().kHeight / 2 - buttonHeight / 2.0f;
+
+	m_objects.emplace("bg", new Background("bg"));
+	m_objects.emplace("play", new PlayButton({ 0, 0, buttonWidth, buttonHeight }, { buttonX, buttonY, (float)buttonWidth, (float)buttonHeight }, "play"));
+	m_objects.emplace("exit", new ExitButton({ 0, 0, buttonWidth, buttonHeight }, { 200, 400, (float)buttonWidth, (float)buttonHeight }, "exit"));
+
+}
+
+void WinState::Update(float deltaTime)
+{
+	for (auto const& i : m_objects)
+	{
+		i.second->Update(deltaTime);
+		if (StateManager::StateChanging())
+			return;
+	}
+}
+
+void WinState::Render()
+{
+	//SDL_SetRenderDrawColor(Game::GetInstance().GetRenderer(), 255, 0, 255, 255);
+	SDL_RenderClear(Game::GetInstance().GetRenderer());
+
+	for (auto const& i : m_objects)
+		i.second->Render();
+}
+
+void WinState::Exit()
+{
+	std::cout << "Exiting TitleState..." << std::endl;
+	SoundManager::StopMusic();
+	SoundManager::UnloadMusic("bgm6");
+
+	TextureManager::Unload("bg");
+	TextureManager::Unload("play");
+	TextureManager::Unload("exit");
+	for (auto& i : m_objects)
+	{
+		delete i.second;
+		i.second = nullptr;
+	}
+	m_objects.clear();
+}
+// End WinState
