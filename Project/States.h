@@ -30,6 +30,8 @@ public:
 	std::vector<Collectables*> m_collectables;
 	std::vector<Enemy*> m_enemy;
 	State* statepointer;
+
+	int frames = 0;
 };
 
 class TitleState : public State

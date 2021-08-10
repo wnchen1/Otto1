@@ -120,15 +120,6 @@ void Player::Update(float deltaTime)
 	AnimatedSpriteObject::Update(deltaTime);
 }
 
-void Player::takeDamage(int dam)
-{
-	health -= dam;
-	if(health <= 0)
-	{
-		health = 100;
-		playerLives--;
-	}
-}
 
 
 
