@@ -227,7 +227,11 @@ void GameState::Update(float deltaTime)
 		//{
 		////DELETE ENEMY
 		//}
-		std::cout << frames << std::endl;
+		if (frames > 400)
+		{
+			frames -= 400;
+		}
+		//std::cout << frames << std::endl;
 		if (SDL_HasIntersection(&player, &enemy) && frames % 400 == 0)
 		{
 			pPlayer->LoseLife();
