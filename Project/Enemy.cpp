@@ -32,10 +32,10 @@ void Enemy::Render()
 {
 	SDL_RenderCopyExF(Game::GetInstance().GetRenderer(), TextureManager::GetTexture("nightb"),
 		&m_sourceTransform, &m_destinationTransform, 0.0, nullptr, (m_facingLeft ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
-	SDL_Rect player = { statepointer->getPlayerPosition()->x, statepointer->getPlayerPosition()->y, statepointer->getPlayerPosition()->w, statepointer->getPlayerPosition()->h };
-	SDL_Rect enemy = { m_destinationTransform.x - 20, m_destinationTransform.y - 20, m_destinationTransform.w + 20, m_destinationTransform.h + 20 };
-	SDL_RenderDrawRect(Game::GetInstance().GetRenderer(), &player);
-	SDL_RenderDrawRect(Game::GetInstance().GetRenderer(), &enemy);
+	//SDL_Rect player = { statepointer->getPlayerPosition()->x, statepointer->getPlayerPosition()->y, statepointer->getPlayerPosition()->w, statepointer->getPlayerPosition()->h };
+	//SDL_Rect enemy = { m_destinationTransform.x - 20, m_destinationTransform.y - 20, m_destinationTransform.w + 20, m_destinationTransform.h + 20 };
+	//SDL_RenderDrawRect(Game::GetInstance().GetRenderer(), &player);
+	//SDL_RenderDrawRect(Game::GetInstance().GetRenderer(), &enemy);
 }
 
 void Enemy::Update(float deltaTime)
@@ -80,19 +80,19 @@ void Enemy::Wander()
 
 	if (roll == 1)
 	{
-		m_destinationTransform.x -= .4;
+		m_destinationTransform.x -= 0.050f;
 	}
 	else if (roll == 2)
 	{
-		m_destinationTransform.x += .4;
+		m_destinationTransform.x += 0.050f;
 	}
 	else if (roll == 3)
 	{
-		m_destinationTransform.y -= .4;
+		m_destinationTransform.y -= 0.050f;
 	}
 	if (roll == 4)
 	{
-		m_destinationTransform.y += .4;
+		m_destinationTransform.y += 0.050f;
 	}
 }
 
