@@ -15,10 +15,10 @@ Boss::Boss(SDL_Rect sourceTransform, SDL_FRect destinationTransform)
 	SetAnimation(0.1, 0, 14, 0);
 
 	SoundManager::SetSoundVolume(10);
-	SoundManager::LoadSound("Assets/Sound/Effects/bowser_intro.wav", "intro");
-	SoundManager::LoadSound("Assets/Sound/Effects/bowser_laugh.wav", "laugh");
-	SoundManager::LoadSound("Assets/Sound/Effects/bowser_damage.wav", "damage");
-	SoundManager::LoadSound("Assets/Sound/Effects/bowser_dead.wav", "dead");
+	SoundManager::LoadSound("Assets/Sound/Effects/bowser_intro.wav", "Bintro");
+	SoundManager::LoadSound("Assets/Sound/Effects/bowser_laugh.wav", "Blaugh");
+	SoundManager::LoadSound("Assets/Sound/Effects/bowser_damage.wav", "Bdamage");
+	SoundManager::LoadSound("Assets/Sound/Effects/bowser_dead.wav", "Bdead");
 }
 
 Boss::~Boss()
