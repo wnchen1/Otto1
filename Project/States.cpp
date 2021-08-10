@@ -149,7 +149,7 @@ void GameState::Update(float deltaTime)
 		float playerBottom = playerColliderTransform->y + playerColliderTransform->h;
 
 		Player* pPlayer = static_cast<Player*>(m_objects["otto"]);
-		Enemy* pEnemy = static_cast<Enemy*>(m_objects["enemy"]);
+		Enemy* pEnemy = m_enemy.front();
 
 		for (unsigned int i = 0; i < static_cast<TiledLevel*>(m_objects["level1"])->GetObstacles().size(); i++)
 		{
