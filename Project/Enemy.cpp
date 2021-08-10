@@ -80,19 +80,19 @@ void Enemy::Wander()
 
 	if (roll == 1)
 	{
-		m_destinationTransform.x -= .1;
+		m_destinationTransform.x -= .4;
 	}
 	else if (roll == 2)
 	{
-		m_destinationTransform.x += .1;
+		m_destinationTransform.x += .4;
 	}
 	else if (roll == 3)
 	{
-		m_destinationTransform.y -= .1;
+		m_destinationTransform.y -= .4;
 	}
 	if (roll == 4)
 	{
-		m_destinationTransform.y += .1;
+		m_destinationTransform.y += .4;
 	}
 }
 
