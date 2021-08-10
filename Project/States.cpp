@@ -109,7 +109,7 @@ void GameState::Enter() // Used for initialization.
 
 void GameState::Update(float deltaTime)
 {
-	frames++;
+	counter++;
 	if (EventManager::KeyPressed(SDL_SCANCODE_F1))
 	{
 		StateManager::ChangeState(new TitleState());
@@ -227,12 +227,12 @@ void GameState::Update(float deltaTime)
 		//{
 		////DELETE ENEMY
 		//}
-		if (frames > 400)
+		if (counter > 400)
 		{
-			frames -= 400;
+			counter -= 400;
 		}
 		//std::cout << frames << std::endl;
-		if (SDL_HasIntersection(&player, &enemy) && frames % 400 == 0)
+		if (SDL_HasIntersection(&player, &enemy) && counter % 400 == 0)
 		{
 			pPlayer->LoseLife();
 		}

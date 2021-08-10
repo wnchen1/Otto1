@@ -31,7 +31,7 @@ public:
 	std::vector<Enemy*> m_enemy;
 	State* statepointer;
 
-	int frames = 0;
+	int counter = 0;
 };
 
 class TitleState : public State
