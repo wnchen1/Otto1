@@ -53,16 +53,18 @@ void Enemy::Update(float deltaTime)
 		}
 		break;
 	case EnemyState::Attack:
+		if (!SDL_HasIntersection(&player, &enemy))
+		{
+			m_state = EnemyState::Idle;
+			SetAnimation(0.1, 0, 9, 0);
+
+		}
 		break;
 	}
 	AnimatedSpriteObject::Update(deltaTime);
 
 }
 
-//void Enemy::Attack()
-//{
-//	
-//}
 
 //void Enemy::Flee()
 //{
@@ -74,8 +76,5 @@ void Enemy::Update(float deltaTime)
 //	
 //}
 //
-//int Enemy::takeDamage(int damage)
-//{
-//	
-//}
+
 

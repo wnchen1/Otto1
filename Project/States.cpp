@@ -215,11 +215,11 @@ void GameState::Update(float deltaTime)
 			}
 		}
 
+		/*SDL_Rect player = { statepointer->getPlayerPosition()->x, statepointer->getPlayerPosition()->y, statepointer->getPlayerPosition()->w, statepointer->getPlayerPosition()->h };
+		SDL_Rect enemy = { m_destinationTransform.x - 20, m_destinationTransform.y - 20, m_destinationTransform.w + 20, m_destinationTransform.h + 20 };*/
 		
 		if (m_objects["otto"]->GetDestinationTransform()->x == 704 && 
-			m_objects["otto"]->GetDestinationTransform()->y == 320 && m_collectables.empty())
-			//AND THEY HAVE GOTTEN THE KEY//
-		{
+			m_objects["otto"]->GetDestinationTransform()->y == 320 && m_collectables.empty())		{
 			GameState::Exit();
 			StateManager::ChangeState(new GameState2);
 		}

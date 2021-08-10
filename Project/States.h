@@ -29,6 +29,7 @@ public:
 	std::map<std::string, GameObject*> m_objects;
 	std::vector<Collectables*> m_collectables;
 	std::vector<Enemy*> m_enemy;
+	State* statepointer;
 };
 
 class TitleState : public State
