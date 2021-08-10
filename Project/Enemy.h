@@ -24,7 +24,7 @@ private:
 	//enum class EnemyState { kIdle, kAttacking, kDying };
 	bool m_facingLeft;
 	bool m_attack;
-	double speed = 0.25;
+	float speed = 0.0025f;
 	int attackValue;
 	int health;
 	SDL_FRect myPosition;
