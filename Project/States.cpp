@@ -149,6 +149,7 @@ void GameState::Update(float deltaTime)
 		float playerBottom = playerColliderTransform->y + playerColliderTransform->h;
 
 		Player* pPlayer = static_cast<Player*>(m_objects["otto"]);
+		Enemy* pEnemy = static_cast<Enemy*>(m_objects["enemy"]);
 
 		for (unsigned int i = 0; i < static_cast<TiledLevel*>(m_objects["level1"])->GetObstacles().size(); i++)
 		{
@@ -215,11 +216,24 @@ void GameState::Update(float deltaTime)
 			}
 		}
 
-		/*SDL_Rect player = { statepointer->getPlayerPosition()->x, statepointer->getPlayerPosition()->y, statepointer->getPlayerPosition()->w, statepointer->getPlayerPosition()->h };
-		SDL_Rect enemy = { m_destinationTransform.x - 20, m_destinationTransform.y - 20, m_destinationTransform.w + 20, m_destinationTransform.h + 20 };*/
+		const SDL_Rect player = {Otto->GetDestinationTransform()->x, Otto->GetDestinationTransform()->y,
+		Otto->GetDestinationTransform()->w, Otto->GetDestinationTransform()->h};
+
+		const SDL_Rect enemy = {pEnemy->GetDestinationTransform()->x, pEnemy->GetDestinationTransform()->y, 
+		pEnemy->GetDestinationTransform()->w, pEnemy->GetDestinationTransform()->h};
+
+		if (SDL_HasIntersection(&player, &enemy) && EventManager::KeyHeld(SDL_SCANCODE_SPACE))
+		{
+		//DELETE ENEMY
+		}
+		else if (SDL_HasIntersection(&player, &enemy) && !EventManager::KeyHeld(SDL_SCANCODE_SPACE))
+		{
+			pPlayer->LoseLife();
+		}
 		
 		if (m_objects["otto"]->GetDestinationTransform()->x == 704 && 
-			m_objects["otto"]->GetDestinationTransform()->y == 320 && m_collectables.empty())		{
+			m_objects["otto"]->GetDestinationTransform()->y == 320 && m_collectables.empty())
+		{
 			GameState::Exit();
 			StateManager::ChangeState(new GameState2);
 		}
