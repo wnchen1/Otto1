@@ -270,7 +270,7 @@ void GameState::Update(float deltaTime)
 
 		//if (SDL_HasIntersection(&player, &enemy) && EventManager::KeyHeld(SDL_SCANCODE_SPACE))
 		//{
-		////DELETE ENEMY
+		//	delete m_enemy;
 		//}
 		if (counter > 400)
 		{
