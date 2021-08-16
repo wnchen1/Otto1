@@ -227,6 +227,7 @@ xcopy "$(ProjectDir)assets" "$(OutDir)Assets" /s /e /i /y
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Collectables.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="ExitButton.cpp" />
@@ -247,6 +248,7 @@ xcopy "$(ProjectDir)assets" "$(OutDir)Assets" /s /e /i /y
     <ClInclude Include="Background.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Collectables.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="ExitButton.h" />

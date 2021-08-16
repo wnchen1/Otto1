@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "Collectables.h"
+#include "Boss.h"
 class Enemy;
 class Player;
 class GameObject;
@@ -29,9 +30,11 @@ public:
 	std::map<std::string, GameObject*> m_objects;
 	std::vector<Collectables*> m_collectables;
 	std::vector<Enemy*> m_enemy;
+	Boss* boss;
 	State* statepointer;
 
 	int counter = 0;
+	int lives = 3;
 };
 
 class TitleState : public State
@@ -47,7 +50,6 @@ class GameState : public State
 {
 	static const int kRectangeSpeed = 300;
 	SDL_FRect m_RectangleTransform;
-	int lives = 3;
 	//Collectables* m_key;
 
 public:

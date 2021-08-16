@@ -23,11 +23,11 @@ public:
 private:
 	enum class PlayerState { kIdle, kRunning, kAttacking };
 	bool m_facingLeft;
-	float speed = 0.09f;
+	float speed = .25;
 	int attackValue = 15;
 	int health = 100;
 	int playerLives;
 	PlayerState m_state;
 };
 
-#endif /* defined (__PLAYER__) */s
+#endif /* defined (__PLAYER__) */

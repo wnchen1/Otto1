@@ -96,16 +96,7 @@ void Enemy::Wander()
 	}
 }
 
-
-//void Enemy::Flee()
-//{
-//	
-//}
-//
 void Enemy::Seek()
 {
 	
 }
-
-
-

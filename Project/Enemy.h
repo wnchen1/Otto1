@@ -20,6 +20,8 @@ public:
 	int attack() { return attackValue; }
 	int getHealth() { return health; }
 	int eCounter = 0;
+
+
 private:
 	//enum class EnemyState { kIdle, kAttacking, kDying };
 	bool m_facingLeft;

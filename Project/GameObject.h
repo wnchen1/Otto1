@@ -20,6 +20,8 @@ public:
 	virtual void Update(float deltaTime) = 0;
 	virtual void Render() = 0;
 	SDL_FRect* GetDestinationTransform() { return &m_destinationTransform; }
+	void setDestinationTransformX( float* destination) { destination = &m_destinationTransform.x; }
+	void setDestinationTransformY( float* destination) { destination = &m_destinationTransform.y; }
 
 protected:
 	SDL_FRect m_destinationTransform;
