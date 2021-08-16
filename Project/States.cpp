@@ -13,6 +13,7 @@
 #include "Background.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Boss.h"
 #include"Potion.h"
 
 ////////////////////////////////////////////
@@ -80,11 +81,6 @@ void TitleState::Exit()
 void GameState::Enter() // Used for initialization.
 {
 	std::cout << "Entering GameState..." << std::endl;
-
-	m_RectangleTransform.x = Game::kWidth / 2;
-	m_RectangleTransform.y = Game::kHeight / 2;
-	m_RectangleTransform.w = 60;
-	m_RectangleTransform.h = 100;
 
 	TextureManager::Load("Assets/Images/grave.png", "grave");
 	TextureManager::Load("Assets/Images/3.png", "3h");
@@ -367,6 +363,8 @@ void GameState::Exit()
 		i.second = nullptr;
 	}
 	m_objects.clear();
+	m_enemy.clear();
+	m_collectables.clear();
 
 	SoundManager::StopMusic();
 	SoundManager::UnloadMusic("bgm2");
@@ -428,6 +426,11 @@ void GameState2::Enter() // Used for initialization.
 	m_objects.emplace("level2", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level2 Data.txt", "Assets/Data/Level2.txt", "tiles"));
 	Otto = new Player({ 0, 0, 64, 64 }, { 32, 512, 32, 32 }, 3);
 	m_objects.emplace("otto", Otto);
+
+	m_collectables.push_back(new Collectables({ 0, 0, 32,32 }, { 80, 450, 32,32 }, CollectableType::key));
+	m_collectables.push_back(new Collectables({ 0, 0, 32,32 }, { 350, 50, 32,32 }, CollectableType::key));
+	m_collectables.push_back(new Collectables({ 0, 0, 32,32 }, { 600, 500, 32,32 }, CollectableType::key));
+	m_collectables.shrink_to_fit();
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - At the Gates.mp3", "bgm3");
 	SoundManager::SetMusicVolume(10);
@@ -610,6 +613,8 @@ void GameState3::Enter() // Used for initialization.
 	m_objects.emplace("level3", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level3 Data.txt", "Assets/Data/Level3.txt", "tiles"));
 	Otto = new Player({ 0, 0, 64, 64 }, { 32, 544, 32, 32 }, 3);
 	m_objects.emplace("otto", Otto);
+
+	m_objects.emplace("boss", new Boss({ 0, 0, 64, 64 }, { 400, 250, 32, 32 }));
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - The Lord Gives Chase.mp3", "bgm4");
 	SoundManager::SetMusicVolume(10);
