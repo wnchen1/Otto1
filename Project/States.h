@@ -6,6 +6,7 @@
 #include "Collectables.h"
 #include "Boss.h"
 class Enemy;
+class Boss;
 class Player;
 class GameObject;
 

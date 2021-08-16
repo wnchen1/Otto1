@@ -603,14 +603,15 @@ void GameState2::Update(float deltaTime)
 
 				if (SDL_HasIntersection(&collectable1, &player))
 				{
-					delete m_collectables[i];
-					m_collectables[i] = nullptr;
-					m_collectables.erase(m_collectables.begin() + i);
-					m_collectables.shrink_to_fit();
 					if (m_collectables[i]->getCollectableType() == CollectableType::p1)
 					{
 						Otto->GainLife();
 					}
+					delete m_collectables[i];
+					m_collectables[i] = nullptr;
+					m_collectables.erase(m_collectables.begin() + i);
+					m_collectables.shrink_to_fit();
+					
 				}
 
 			}
