@@ -746,7 +746,7 @@ void GameState3::Enter() // Used for initialization.
 	Otto = new Player({ 0, 0, 64, 64 }, { 32, 544, 32, 32 }, 3);
 	m_objects.emplace("otto", Otto);
 
-	boss = new Boss({ 0,0,64,64 }, { 683,366,64,64 });
+	boss = new Boss({ 0,0,64,64 }, { 683,366,64,64 }, this);
 	m_objects.emplace("boss", boss);
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - The Lord Gives Chase.mp3", "bgm4");

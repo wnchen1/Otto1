@@ -5,7 +5,7 @@
 #include "SoundManager.h"
 #include "CollisionManager.h"
 
-Boss::Boss(SDL_Rect sourceTransform, SDL_FRect destinationTransform)
+Boss::Boss(SDL_Rect sourceTransform, SDL_FRect destinationTransform, State* parent)
 	: AnimatedSpriteObject(sourceTransform, destinationTransform),
 	m_state(BossState::kRunning),
 	m_facingLeft(true)
@@ -33,7 +33,7 @@ void Boss::Render()
 void Boss::Update(float deltaTime)
 {
 	SDL_Rect enemyRect = { m_destinationTransform.x, m_destinationTransform.y, m_destinationTransform.w, m_destinationTransform.h };
-	SDL_Rect playerRect = { player->GetDestinationTransform()->x, player->GetDestinationTransform()->x, player->GetDestinationTransform()->w, player->GetDestinationTransform()->h };
+	SDL_Rect playerRect = { statepointer->getPlayerPosition()->x, statepointer->getPlayerPosition()->y, statepointer->getPlayerPosition()->w, statepointer->getPlayerPosition()->h };
 
 	switch (m_state)
 	{

@@ -2,11 +2,12 @@
 #define __BOSS__
 #include "AnimatedSpriteObject.h"
 #include "PlatformPlayer.h"
+#include "States.h"
 
 class Boss : public AnimatedSpriteObject
 {
 public:
-	Boss(SDL_Rect sourceTransform, SDL_FRect destinationTransform);
+	Boss(SDL_Rect sourceTransform, SDL_FRect destinationTransform, State* parent);
 	~Boss();
 
 	virtual void Render() override;
