@@ -96,9 +96,14 @@ void GameState::Enter() // Used for initialization.
 	m_objects.emplace("otto", Otto);
 	//Enemies 6 // 
 	m_enemy.push_back(new Enemy({ 0, 0, 80, 80 }, { 350, 32, 64, 64 }, 100, 15, this));
-	m_collectables.push_back(new Collectables({ 0, 0, 32,32 }, { 150, 150, 32,32 }, CollectableType::key));
+	m_enemy.push_back(new Enemy({ 0, 0, 80, 80 }, { 550, 350, 64, 64 }, 100, 15, this));
+	m_enemy.push_back(new Enemy({ 0, 0, 80, 80 }, { 190, 330, 64, 64 }, 100, 15, this));
+
+	m_collectables.push_back(new Collectables({ 0, 0, 32,32 }, { 80, 450, 32,32 }, CollectableType::key));
 	m_collectables.push_back(new Collectables({ 0, 0, 32,32 }, { 350, 50, 32,32 }, CollectableType::key));
-	m_collectables.push_back(new Collectables({ 0, 0, 32,32 }, { 350, 150, 32,32 }, CollectableType::key));
+	m_collectables.push_back(new Collectables({ 0, 0, 32,32 }, { 600, 500, 32,32 }, CollectableType::key));
+	m_collectables.push_back(new Collectables({ 0, 0, 32,32 }, { 700, 400, 32,32 }, CollectableType::p1));
+	m_collectables.push_back(new Collectables({ 0, 0, 32,32 }, { 60, 520, 32,32 }, CollectableType::p1));
 	m_collectables.shrink_to_fit();
 
 	//m_potion = new Collectables({ 0, 0, 32,32 }, { 110, 150, 32,32 }, CollectableType::p1);
