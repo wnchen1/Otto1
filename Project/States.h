@@ -21,16 +21,16 @@ public:
 	virtual void Exit() = 0;
 	virtual void Pause() { }
 	virtual void Resume() { }
-	SDL_FRect* getPlayerPosition() { return m_objects["otto"]->GetDestinationTransform(); }
+	SDL_FRect* getPlayerPosition() { return m_objects["otto"]->GetDestinationTransform();}
 	Player* Otto;
+	Boss* boss;
 	Collectables* m_key;
 	Collectables* m_key2;
 	Collectables* m_potion;
-	
+
 	std::map<std::string, GameObject*> m_objects;
 	std::vector<Collectables*> m_collectables;
 	std::vector<Enemy*> m_enemy;
-	Boss* boss;
 	State* statepointer;
 
 	int counter = 0;
@@ -53,7 +53,7 @@ class GameState : public State
 	//Collectables* m_key;
 
 public:
-	
+
 	virtual void Enter() override;
 	virtual void Update(float deltaTime) override;
 	virtual void Render() override;

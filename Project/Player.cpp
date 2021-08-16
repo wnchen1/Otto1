@@ -5,17 +5,17 @@
 #include "EventManager.h"
 #include "SoundManager.h"
 
-Player::Player(SDL_Rect sourceTransform, SDL_FRect destinationTransform, int lives):
+Player::Player(SDL_Rect sourceTransform, SDL_FRect destinationTransform, int lives) :
 	playerLives(lives), AnimatedSpriteObject(sourceTransform, destinationTransform),
 	m_state(PlayerState::kIdle),
 	m_facingLeft(false)
-	
+
 {
 	TextureManager::Load("Assets/Images/otto.png", "otto");
 
 	SetAnimation(0.1, 0, 13, 0);
 
-//SOUNDS FOR PLAYER
+	//SOUNDS FOR PLAYER
 	SoundManager::SetSoundVolume(5);
 	SoundManager::LoadSound("Assets/Sound/Effects/sword.mp3", "sword");
 	SoundManager::LoadSound("Assets/Sound/Effects/walk.mp3", "walk");
@@ -50,7 +50,7 @@ void Player::Update(float deltaTime)
 		}
 		break;
 
-	////////////////Player Running////////////
+		////////////////Player Running////////////
 
 	case PlayerState::kRunning:
 		if (EventManager::KeyHeld(SDL_SCANCODE_W) /*&& m_destinationTransform.y > 0*/)
@@ -70,7 +70,7 @@ void Player::Update(float deltaTime)
 		}
 		else if (EventManager::KeyHeld(SDL_SCANCODE_S) /*&& m_destinationTransform.x
 			< Game::kHeight - m_destinationTransform.y*/)
-		{	
+		{
 			SoundManager::PlaySound("walk");
 			m_destinationTransform.y += speed;
 			if (m_facingLeft)

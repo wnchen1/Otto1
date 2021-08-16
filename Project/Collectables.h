@@ -13,5 +13,6 @@ public:
 	
 	void Update(float deltaTime) override;
 	void Render() override;
+	auto getCollectableType() {return m_type;}
 };
 

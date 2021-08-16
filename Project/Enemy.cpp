@@ -18,7 +18,7 @@ Enemy::Enemy(SDL_Rect sourceTransform, SDL_FRect destinationTransform, int hP, i
 	TextureManager::Load("Assets/Images/NightBorne.png", "nightb");
 
 	SetAnimation(0.1, 0, 9, 0);
-	
+
 	statepointer = parent;
 	//SOUNDS FOR PLAYER
 	SoundManager::SetSoundVolume(10);
@@ -66,7 +66,7 @@ void Enemy::Update(float deltaTime)
 }
 
 void Enemy::Wander()
-{ 
+{
 	eCounter++;
 	if (eCounter > 300)
 	{
@@ -98,5 +98,5 @@ void Enemy::Wander()
 
 void Enemy::Seek()
 {
-	
+
 }

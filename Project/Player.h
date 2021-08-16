@@ -17,8 +17,8 @@ public:
 	int getPlayerLive() { return playerLives; }
 	int attack() { return attackValue; }
 	int getHealth() { return health; }
-	void GainLife() { playerLives++; }
-	void LoseLife() { playerLives--; }
+	void GainLife() { playerLives++; if (playerLives>3) playerLives = 3;}
+	void LoseLife() { playerLives--; if (playerLives<0) playerLives = 0;}
 
 private:
 	enum class PlayerState { kIdle, kRunning, kAttacking };
