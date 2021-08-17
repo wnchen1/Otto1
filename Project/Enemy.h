@@ -20,6 +20,8 @@ public:
 	int getHealth() { return health; }
 	float getSpeed() {return speed;}
 
+	void Wander();
+
 
 private:
 	//enum class EnemyState { kIdle, kAttacking, kDying };
@@ -32,7 +34,8 @@ private:
 	EnemyState m_state;
 	std::map<std::string, GameObject*> m_objects;
 
-	int roll = 1;
+	int roll = 0;
+	int eCounter = 0;
 };
 
 #endif /* defined (__ENEMY__) */s

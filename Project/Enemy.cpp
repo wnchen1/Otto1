@@ -46,6 +46,7 @@ void Enemy::Update(float deltaTime)
 	switch (m_state)
 	{
 	case EnemyState::Idle:
+		Wander();
 		if (SDL_HasIntersection(&player, &enemy))
 		{
 			m_state = EnemyState::Attack;
@@ -57,39 +58,40 @@ void Enemy::Update(float deltaTime)
 		{
 			m_state = EnemyState::Idle;
 			SetAnimation(0.1, 0, 9, 0);
+			Wander();
 		}
 		break;
 	}
 	AnimatedSpriteObject::Update(deltaTime);
 }
 
-//void Enemy::Wander()
-//{
-//	eCounter++;
-//	if (eCounter > 300)
-//	{
-//		eCounter -= 300;
-//	}
-//	srand(time(NULL));
-//	if (eCounter == 1)
-//	{
-//		roll = rand() % 4 + 1;
-//	}
-//
-//	if (roll == 1)
-//	{
-//		m_destinationTransform.x -= speed;
-//	}
-//	else if (roll == 2)
-//	{
-//		m_destinationTransform.x += speed;
-//	}
-//	else if (roll == 3)
-//	{
-//		m_destinationTransform.y -= speed;
-//	}
-//	if (roll == 4)
-//	{
-//		m_destinationTransform.y += speed;
-//	}
-//}
+void Enemy::Wander()
+{
+	eCounter++;
+	if (eCounter > 300)
+	{
+		eCounter -= 300;
+	}
+	srand(time(NULL));
+	if (eCounter == 1)
+	{
+		roll = rand() % 4 + 1;
+	}
+
+	if (roll == 1)
+	{
+		m_destinationTransform.x -= speed;
+	}
+	else if (roll == 2)
+	{
+		m_destinationTransform.x += speed;
+	}
+	else if (roll == 3)
+	{
+		m_destinationTransform.y -= speed;
+	}
+	if (roll == 4)
+	{
+		m_destinationTransform.y += speed;
+	}
+}
