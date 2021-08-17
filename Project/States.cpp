@@ -904,7 +904,7 @@ void GameState3::Update(float deltaTime)
 		}
 		else
 		{
-			boss->setBossState(Boss::BossState::kRunning);
+			boss->setBossState(Boss::BossState::kIdle);
 			boss->Wander();
 		}
 	}
