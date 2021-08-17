@@ -7,12 +7,12 @@
 
 Boss::Boss(SDL_Rect sourceTransform, SDL_FRect destinationTransform)
 	: AnimatedSpriteObject(sourceTransform, destinationTransform),
-	m_state(BossState::kIdle),
+	m_state(BossState::kRunning),
 	m_facingLeft(true)
 {
 	
 	TextureManager::Load("Assets/Images/boss.png", "boss");
-	SetAnimation(0.1, 0, 12, 2);
+	SetAnimation(0.1, 0, 12, 128);
 
 	SoundManager::SetSoundVolume(10);
 	SoundManager::LoadSound("Assets/Sound/Effects/bowser_intro.wav", "Bintro");
@@ -34,12 +34,12 @@ void Boss::Update(float deltaTime)
 {
 	switch (m_state)
 	{
-		case BossState::kRunning:
-		SetAnimation(0.1, 0, 12, 2);
-		break;
+//		case BossState::kRunning:
+//		SetAnimation(0.1, 0, 12, 2);
+//		break;
 
 		case BossState::kFollowing:
-		SetAnimation(0.1, 0, 12, 2);
+		SetAnimation(0.1, 0, 12, 128);
 		break;
 
 		case BossState::kAttacking:
