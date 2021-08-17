@@ -7,7 +7,7 @@
 
 Boss::Boss(SDL_Rect sourceTransform, SDL_FRect destinationTransform)
 	: AnimatedSpriteObject(sourceTransform, destinationTransform),
-	m_state(BossState::kRunning),
+	m_state(BossState::kIdle),
 	m_facingLeft(true)
 {
 	
