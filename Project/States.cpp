@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "CollisionManager.h"
 #include "States.h"
 #include "Game.h"
 #include "StateManager.h"
@@ -88,7 +89,7 @@ void GameState::Enter() // Used for initialization.
 	TextureManager::Load("Assets/Images/1.png", "1h");
 
 	m_objects.emplace("level1", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level1 Data.txt", "Assets/Data/Level1.txt", "grave"));
-	Otto = new Player({ 0, 0, 64, 64 }, { 60, 32, 32, 32 }, 3);
+	Otto = new Player({ 0, 0, 64, 64 }, { 60, 32, 32, 32 }, Otto->getPlayerLives());
 	m_objects.emplace("otto", Otto);
 	//Enemies 6 // 
 	m_enemy.push_back(new Enemy({ 0, 0, 80, 80 }, { 350, 32, 64, 64 }, 100, 15, this));
@@ -341,22 +342,22 @@ void GameState::Render()
 	const SDL_FRect m_h1Dst = { ottoX , ottoY - 20, 25, 25 };
 	const SDL_FRect m_h2Dst = { ottoX - 10, ottoY - 20, 50, 25 };
 	const SDL_FRect m_h3Dst = { ottoX - 22, ottoY - 20, 75, 25 };
-	if (Otto->getPlayerLive() == 3)
+	if (Otto->getPlayerLives() == 3)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("3h"), &m_h3Src, &m_h3Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (Otto->getPlayerLive() == 2)
+	else if (Otto->getPlayerLives() == 2)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("2h"), &m_h2Src, &m_h2Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (Otto->getPlayerLive() == 1)
+	else if (Otto->getPlayerLives() == 1)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("1h"), &m_h1Src, &m_h1Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (Otto->getPlayerLive() == 0)
+	else if (Otto->getPlayerLives() == 0)
 	{
 		StateManager::ChangeState(new EndState());
 	}
@@ -435,7 +436,7 @@ void GameState2::Enter() // Used for initialization.
 	TextureManager::Load("Assets/Images/Tiles.png", "tiles");
 
 	m_objects.emplace("level2", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level2 Data.txt", "Assets/Data/Level2.txt", "tiles"));
-	Otto = new Player({ 0, 0, 64, 64 }, { 32, 512, 32, 32 }, 3);
+	Otto = new Player({ 0, 0, 64, 64 }, { 32, 512, 32, 32 }, Otto->getPlayerLives());
 	m_objects.emplace("otto", Otto);
 
 	m_enemy.push_back(new Enemy({ 0, 0, 80, 80 }, { 735, 544, 64, 64 }, 100, 15, this));
@@ -684,22 +685,22 @@ void GameState2::Render()
 	const SDL_FRect m_h1Dst = { ottoX , ottoY - 20, 25, 25 };
 	const SDL_FRect m_h2Dst = { ottoX - 10, ottoY - 20, 50, 25 };
 	const SDL_FRect m_h3Dst = { ottoX - 22, ottoY - 20, 75, 25 };
-	if (Otto->getPlayerLive() == 3)
+	if (Otto->getPlayerLives() == 3)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("3h"), &m_h3Src, &m_h3Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (Otto->getPlayerLive() == 2)
+	else if (Otto->getPlayerLives() == 2)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("2h"), &m_h2Src, &m_h2Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (Otto->getPlayerLive() == 1)
+	else if (Otto->getPlayerLives() == 1)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("1h"), &m_h1Src, &m_h1Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (Otto->getPlayerLive() == 0)
+	else if (Otto->getPlayerLives() == 0)
 	{
 		StateManager::ChangeState(new EndState());
 	}
@@ -744,10 +745,10 @@ void GameState3::Enter() // Used for initialization.
 	TextureManager::Load("Assets/Images/Tiles.png", "tiles");
 
 	m_objects.emplace("level3", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level3 Data.txt", "Assets/Data/Level3.txt", "tiles"));
-	Otto = new Player({ 0, 0, 64, 64 }, { 32, 544, 32, 32 }, 3);
+	Otto = new Player({ 0, 0, 64, 64 }, { 32, 544, 32, 32 }, Otto->getPlayerLives());
 	m_objects.emplace("otto", Otto);
 
-	boss = new Boss({ 0,0,64,64 }, { 683,366,64,64 }, this);
+	boss = new Boss({ 0,0,64,64 }, { 683,366,64,64 });
 	m_objects.emplace("boss", boss);
 
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - The Lord Gives Chase.mp3", "bgm4");
@@ -877,6 +878,27 @@ void GameState3::Update(float deltaTime)
 				}
 			}
 		}
+	
+
+		const SDL_Rect bossRect = {boss->GetDestinationTransform()->x, boss->GetDestinationTransform()->y, 
+			boss->GetDestinationTransform()->w, boss->GetDestinationTransform()->h};
+		const SDL_Rect ottoRect = {Otto->GetDestinationTransform()->x, Otto->GetDestinationTransform()->y,
+			Otto->GetDestinationTransform()->w, Otto->GetDestinationTransform()->h};
+
+		if (CollisionManager::Distance(boss->GetDestinationTransform()->x, Otto->GetDestinationTransform()->x,
+			boss->GetDestinationTransform()->y, Otto->GetDestinationTransform()->y) < 200)
+		{
+			boss->setBossState(Boss::BossState::kFollowing);
+			bossFollow();
+			if (SDL_HasIntersection(&bossRect, &ottoRect))
+			{
+				boss->setBossState(Boss::BossState::kAttacking);
+			}	
+		}
+		else
+		{
+			boss->Wander();
+		}
 	}
 }
 
@@ -901,22 +923,22 @@ void GameState3::Render()
 	const SDL_FRect m_h1Dst = { ottoX , ottoY - 20, 25, 25 };
 	const SDL_FRect m_h2Dst = { ottoX - 10, ottoY - 20, 50, 25 };
 	const SDL_FRect m_h3Dst = { ottoX - 22, ottoY - 20, 75, 25 };
-	if (Otto->getPlayerLive() == 3)
+	if (Otto->getPlayerLives() == 3)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("3h"), &m_h3Src, &m_h3Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (Otto->getPlayerLive() == 2)
+	else if (Otto->getPlayerLives() == 2)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("2h"), &m_h2Src, &m_h2Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (Otto->getPlayerLive() == 1)
+	else if (Otto->getPlayerLives() == 1)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("1h"), &m_h1Src, &m_h1Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (Otto->getPlayerLive() == 0)
+	else if (Otto->getPlayerLives() == 0)
 	{
 		StateManager::ChangeState(new EndState());
 	}
@@ -1071,5 +1093,27 @@ void WinState::Exit()
 		i.second = nullptr;
 	}
 	m_objects.clear();
+}
+
+void State::bossFollow()
+{
+	if (boss->GetDestinationTransform()->x < Otto->GetDestinationTransform()->x) //enemy is to the left of player
+	{
+		boss->GetDestinationTransform()->x += 0.05;
+		boss->setBossFacingLeft(true);
+	}
+	if (boss->GetDestinationTransform()->x > Otto->GetDestinationTransform()->x)//enemy is to the right of player
+	{
+		boss->GetDestinationTransform()->x -= 0.05;
+		boss->setBossFacingLeft(false);
+	}
+	if (boss->GetDestinationTransform()->y < Otto->GetDestinationTransform()->y) //enemy is above player
+	{
+		boss->GetDestinationTransform()->y += 0.05;
+	}
+	if (boss->GetDestinationTransform()->y > Otto->GetDestinationTransform()->y) //enemy is below player
+	{
+		boss->GetDestinationTransform()->y -= 0.05;
+	}
 }
 // End WinState

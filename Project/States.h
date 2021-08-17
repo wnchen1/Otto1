@@ -22,6 +22,9 @@ public:
 	virtual void Exit() = 0;
 	virtual void Pause() { }
 	virtual void Resume() { }
+
+	void bossFollow();
+
 	SDL_FRect* getPlayerPosition() { return m_objects["otto"]->GetDestinationTransform();}
 	Player* Otto;
 	Boss* boss;

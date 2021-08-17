@@ -14,7 +14,7 @@ public:
 	virtual void Update(float deltaTime) override;
 	void SetX(float x) { m_destinationTransform.x = x; }
 	void SetY(float y) { m_destinationTransform.y = y; }
-	int getPlayerLive() { return playerLives; }
+	int getPlayerLives() { return playerLives; }
 	int attack() { return attackValue; }
 	int getHealth() { return health; }
 	void GainLife() { playerLives++; if (playerLives>3) playerLives = 3;}

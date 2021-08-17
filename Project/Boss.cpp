@@ -5,7 +5,7 @@
 #include "SoundManager.h"
 #include "CollisionManager.h"
 
-Boss::Boss(SDL_Rect sourceTransform, SDL_FRect destinationTransform, State* parent)
+Boss::Boss(SDL_Rect sourceTransform, SDL_FRect destinationTransform)
 	: AnimatedSpriteObject(sourceTransform, destinationTransform),
 	m_state(BossState::kRunning),
 	m_facingLeft(true)
@@ -32,47 +32,19 @@ void Boss::Render()
 
 void Boss::Update(float deltaTime)
 {
-	SDL_Rect enemyRect = { m_destinationTransform.x, m_destinationTransform.y, m_destinationTransform.w, m_destinationTransform.h };
-	SDL_Rect playerRect = { statepointer->getPlayerPosition()->x, statepointer->getPlayerPosition()->y, statepointer->getPlayerPosition()->w, statepointer->getPlayerPosition()->h };
-
 	switch (m_state)
 	{
-	case BossState::kRunning:
-		if (CollisionManager::Distance(m_destinationTransform.x, player->GetDestinationTransform()->x,
-			m_destinationTransform.y, player->GetDestinationTransform()->y) < 200)
-		{
-			m_state = BossState::kFollowing;
-			SetAnimation(0.1, 0, 12, 2);
-		}
-		else if (CollisionManager::AABBCheck(enemyRect, playerRect))
-		{
-			m_state = BossState::kAttacking;
-			SetAnimation(0.1, 0, 13, 0);
-		}
-		else Wander();
+		case BossState::kRunning:
+		SetAnimation(0.1, 0, 12, 2);
 		break;
 
-	case BossState::kAttacking:
-		if (!CollisionManager::AABBCheck(enemyRect, playerRect))
-		{
-			m_state = BossState::kRunning;
-			SetAnimation(0.1, 0, 12, 2);
-		}
+		case BossState::kFollowing:
+		SetAnimation(0.1, 0, 12, 2);
 		break;
-	
-	case BossState::kFollowing:
-		if (CollisionManager::AABBCheck(enemyRect, playerRect))
-		{
-			m_state = BossState::kAttacking;
-			SetAnimation(0.1, 0, 13, 0);
-		}
-		else if (CollisionManager::Distance(m_destinationTransform.x, player->GetDestinationTransform()->x,
-			m_destinationTransform.y, player->GetDestinationTransform()->y) > 200)
-		{
-			m_state = BossState::kRunning;
-			SetAnimation(0.1, 0, 12, 2);
-		}
-		else Follow();
+
+		case BossState::kAttacking:
+		SetAnimation(0.1, 0, 13, 0);
+		break;
 	}
 }
 
@@ -111,22 +83,5 @@ void Boss::Wander()
 
 void Boss::Follow()
 {
-	if (m_destinationTransform.x < player->GetDestinationTransform()->x) //enemy is to the left of player
-	{
-		m_destinationTransform.x += 0.05;
-		m_facingLeft = false;
-	}
-	if (m_destinationTransform.x > player->GetDestinationTransform()->x)//enemy is to the right of player
-	{
-		m_destinationTransform.x -= 0.05;
-		m_facingLeft = true;
-	}
-	if (m_destinationTransform.y < player->GetDestinationTransform()->y) //enemy is above player
-	{
-		m_destinationTransform.y += 0.05;
-	}
-	if (m_destinationTransform.y > player->GetDestinationTransform()->y) //enemy is below player
-	{
-		m_destinationTransform.y -= 0.05;
-	}
+	
 }

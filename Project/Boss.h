@@ -7,18 +7,22 @@
 class Boss : public AnimatedSpriteObject
 {
 public:
-	Boss(SDL_Rect sourceTransform, SDL_FRect destinationTransform, State* parent);
+	Boss(SDL_Rect sourceTransform, SDL_FRect destinationTransform);
 	~Boss();
-
+	enum class BossState { kIdle, kAttacking, kRunning, kFollowing};
 	virtual void Render() override;
 	virtual void Update(float deltaTime) override;
 	void SetX(float x) { m_destinationTransform.x = x; }
 	void SetY(float y) { m_destinationTransform.y = y; }
+	BossState* getBossState() {return &m_state;};
+	void setBossState(BossState state) {state = m_state;}
 	void Wander();
 	void Follow();
 
+	void setBossFacingLeft(bool left){left = m_facingLeft;}
+
 private:
-	enum class BossState { kIdle, kAttacking, kRunning, kFollowing};
+	
 	bool m_facingLeft;
 	double speed = 0.25;
 	BossState m_state;
