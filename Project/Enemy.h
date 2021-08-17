@@ -13,12 +13,12 @@ public:
 	// Life Cycle Methods
 	virtual void Render() override;
 	virtual void Update(float deltaTime) override;
-	void Wander();
+	//void Wander();
 	void SetX(float x) { m_destinationTransform.x = x; }
 	void SetY(float y) { m_destinationTransform.y = y; }
 	int attack() { return attackValue; }
 	int getHealth() { return health; }
-	int eCounter = 0;
+	float getSpeed() {return speed;}
 
 
 private:

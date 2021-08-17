@@ -24,6 +24,8 @@ public:
 	virtual void Resume() { }
 
 	void bossFollow();
+	void enemyMove(Enemy* enemy);
+	void enemyAvoid(Enemy* enemy);
 
 	SDL_FRect* getPlayerPosition() { return m_objects["otto"]->GetDestinationTransform();}
 	Player* Otto;
@@ -41,6 +43,8 @@ public:
 	void ottoGainLife() { ottoLives++; if (ottoLives > 3) ottoLives = 3;}
 	void ottoLoseLife() { ottoLives--; if (ottoLives<0) ottoLives = 0;}
 
+	int eCounter = 0;
+	int roll = 0;
 	int counter = 0;
 };
 

@@ -34,9 +34,9 @@ void Boss::Update(float deltaTime)
 {
 	switch (m_state)
 	{
-//		case BossState::kRunning:
-//		SetAnimation(0.1, 0, 12, 2);
-//		break;
+		//case BossState::kRunning:
+		//SetAnimation(0.1, 0, 12, 128);
+		//break;
 
 		case BossState::kFollowing:
 		SetAnimation(0.1, 0, 12, 128);
