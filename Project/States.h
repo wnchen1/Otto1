@@ -40,6 +40,7 @@ public:
 	State* statepointer;
 
 	int ottoLives = 3;
+	int enemyLives = 6;
 	void ottoGainLife() { ottoLives++; if (ottoLives > 3) ottoLives = 3;}
 	void ottoLoseLife() { ottoLives--; if (ottoLives<0) ottoLives = 0;}
 

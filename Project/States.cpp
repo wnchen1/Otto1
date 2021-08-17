@@ -450,6 +450,7 @@ void GameState2::Enter() // Used for initialization.
 	m_enemy.push_back(new Enemy({ 0, 0, 80, 80 }, { 735, 544, 64, 64 }, 100, 15, this));
 	m_enemy.push_back(new Enemy({ 0, 0, 80, 80 }, { 21, 288, 64, 64 }, 100, 15, this));
 	m_enemy.push_back(new Enemy({ 0, 0, 80, 80 }, { 429, 96, 64, 64 }, 100, 15, this));
+	m_enemy.shrink_to_fit();
 
 	m_collectables.push_back(new Collectables({ 0, 0, 32, 32 }, { 672, 320, 32, 32 }, CollectableType::key));
 	m_collectables.push_back(new Collectables({ 0, 0, 32, 32 }, { 512, 480, 32, 32 }, CollectableType::key));
@@ -751,8 +752,20 @@ void GameState3::Enter() // Used for initialization.
 	std::cout << "Entering GameState..." << std::endl;
 
 	TextureManager::Load("Assets/Images/Tiles.png", "tiles");
+	TextureManager::Load("Assets/Images/1skull.png", "1skull");
+	TextureManager::Load("Assets/Images/2skull.png", "2skull");
+	TextureManager::Load("Assets/Images/3skull.png", "3skull");
+	TextureManager::Load("Assets/Images/4skull.png", "4skull");
+	TextureManager::Load("Assets/Images/5skull.png", "5skull");
+	TextureManager::Load("Assets/Images/6skull.png", "6skull");
 
 	m_objects.emplace("level3", new TiledLevel(19, 25, 32, 32, "Assets/Data/Level3 Data.txt", "Assets/Data/Level3.txt", "tiles"));
+
+	m_collectables.push_back(new Collectables({ 0, 0, 32, 32 }, { 288, 320, 32, 32 }, CollectableType::p1));
+	m_collectables.push_back(new Collectables({ 0, 0, 32, 32 }, { 480, 320, 32, 32 }, CollectableType::p1));
+	m_collectables.push_back(new Collectables({ 0, 0, 32, 32 }, { 32, 300, 32, 32 }, CollectableType::p1));
+	m_collectables.push_back(new Collectables({ 0, 0, 32, 32 }, { 736, 300, 32, 32 }, CollectableType::p1));
+
 	Otto = new Player({ 0, 0, 64, 64 }, { 32, 544, 32, 32 });
 	m_objects.emplace("otto", Otto);
 
@@ -766,7 +779,8 @@ void GameState3::Enter() // Used for initialization.
 
 void GameState3::Update(float deltaTime)
 {
-	std::cout << m_objects["boss"]->GetDestinationTransform()->x << "," << m_objects["boss"]->GetDestinationTransform()->y << std::endl;
+	counter++;
+	std::cout << m_objects["otto"]->GetDestinationTransform()->x << "," << m_objects["otto"]->GetDestinationTransform()->y << std::endl;
 	if (EventManager::KeyPressed(SDL_SCANCODE_P))
 	{
 		StateManager::PushState(new PauseState()); // Add new PauseState
@@ -885,11 +899,35 @@ void GameState3::Update(float deltaTime)
 			}
 		}
 	
-
 		const SDL_Rect bossRect = {boss->GetDestinationTransform()->x, boss->GetDestinationTransform()->y, 
 			boss->GetDestinationTransform()->w, boss->GetDestinationTransform()->h};
 		const SDL_Rect ottoRect = {Otto->GetDestinationTransform()->x, Otto->GetDestinationTransform()->y,
 			Otto->GetDestinationTransform()->w, Otto->GetDestinationTransform()->h};
+
+		if (!m_collectables.empty())
+		{
+
+			for (int i = 0; i < m_collectables.size(); i++)
+			{
+				SDL_Rect  collectable1 = { m_collectables[i]->GetDestinationTransform()->x, m_collectables[i]->GetDestinationTransform()->y, m_collectables[i]->GetDestinationTransform()->w, m_collectables[i]->GetDestinationTransform()->h };
+
+				SDL_Rect player = { m_objects["otto"]->GetDestinationTransform()->x, m_objects["otto"]->GetDestinationTransform()->y, m_objects["otto"]->GetDestinationTransform()->w, m_objects["otto"]->GetDestinationTransform()->h };
+
+				if (SDL_HasIntersection(&collectable1, &player))
+				{
+					if (m_collectables[i]->getCollectableType() == CollectableType::p1)
+					{
+						ottoGainLife();
+					}
+					delete m_collectables[i];
+					m_collectables[i] = nullptr;
+					m_collectables.erase(m_collectables.begin() + i);
+					m_collectables.shrink_to_fit();
+					
+				}
+
+			}
+		}
 
 		if (CollisionManager::Distance(boss->GetDestinationTransform()->x, Otto->GetDestinationTransform()->x,
 			boss->GetDestinationTransform()->y, Otto->GetDestinationTransform()->y) < 200)
@@ -900,7 +938,16 @@ void GameState3::Update(float deltaTime)
 			if (SDL_HasIntersection(&bossRect, &ottoRect))
 			{
 				boss->setBossState(Boss::BossState::kAttacking);
-			}	
+				if ( counter % 400 == 0)
+				{
+					ottoLoseLife();
+				}
+			}
+			if (SDL_HasIntersection(&bossRect, &ottoRect) && EventManager::KeyHeld(SDL_SCANCODE_SPACE) && counter % 200 == 0)
+			{
+				enemyLives--;
+			}
+
 		}
 		else
 		{
@@ -922,15 +969,43 @@ void GameState3::Render()
 
 	boss->Render();
 
+	if (!m_collectables.empty())
+	{
+		for (int i = 0; i < m_collectables.size(); i++)
+		{
+			m_collectables[i]->Render();
+		}
+	}
+
 	SDL_FRect* playerPos = m_objects["otto"]->GetDestinationTransform();
+	SDL_FRect* bossPos = boss->GetDestinationTransform();
+
 	int ottoX = playerPos->x;
 	int ottoY = playerPos->y;
+
+	int bossX = bossPos->x;
+	int bossY = bossPos->y;
+
 	const SDL_Rect m_h1Src = { 0, 0, 25, 25 };
 	const SDL_Rect m_h2Src = { 0, 0, 50, 25 };
 	const SDL_Rect m_h3Src = { 0, 0, 75, 25 };
 	const SDL_FRect m_h1Dst = { ottoX , ottoY - 20, 25, 25 };
 	const SDL_FRect m_h2Dst = { ottoX - 10, ottoY - 20, 50, 25 };
 	const SDL_FRect m_h3Dst = { ottoX - 22, ottoY - 20, 75, 25 };
+
+	const SDL_Rect skull1Src = { 0, 0, 25, 25};
+	const SDL_Rect skull2Src = { 0, 0, 50, 25};
+	const SDL_Rect skull3Src = { 0, 0, 75, 25};
+	const SDL_Rect skull4Src = { 0, 0, 100, 25};
+	const SDL_Rect skull5Src = { 0, 0, 125, 25};
+	const SDL_Rect skull6Src = { 0, 0, 150, 25};
+	const SDL_FRect skull1Dst = { bossX, bossY - 20, 25, 25 };
+	const SDL_FRect skull2Dst = { bossX - 10, bossY - 20, 50, 25 };
+	const SDL_FRect skull3Dst = { bossX - 22, bossY - 20, 75, 25 };
+	const SDL_FRect skull4Dst = { bossX - 34, bossY - 20, 100, 25 };
+	const SDL_FRect skull5Dst = { bossX - 46, bossY - 20, 125, 25 };
+	const SDL_FRect skull6Dst = { bossX - 58, bossY - 20, 150, 25 };
+
 	if (ottoLives == 3)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
@@ -950,6 +1025,42 @@ void GameState3::Render()
 	{
 		StateManager::ChangeState(new EndState());
 	}
+
+	if (enemyLives == 6)
+	{
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+			TextureManager::GetTexture("6skull"), &skull6Src, &skull6Dst, 0, 0, SDL_FLIP_NONE);
+	}
+	else if (enemyLives == 5)
+	{
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+			TextureManager::GetTexture("5skull"), &skull5Src, &skull5Dst, 0, 0, SDL_FLIP_NONE);
+	}
+	else if (enemyLives == 4)
+	{
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+			TextureManager::GetTexture("4skull"), &skull4Src, &skull4Dst, 0, 0, SDL_FLIP_NONE);
+	}
+	else if (enemyLives == 3)
+	{
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+			TextureManager::GetTexture("3skull"), &skull3Src, &skull3Dst, 0, 0, SDL_FLIP_NONE);
+	}
+	else if (enemyLives == 2)
+	{
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+			TextureManager::GetTexture("2skull"), &skull2Src, &skull2Dst, 0, 0, SDL_FLIP_NONE);
+	}
+	else if (enemyLives == 1)
+	{
+		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
+			TextureManager::GetTexture("1skull"), &skull1Src, &skull1Dst, 0, 0, SDL_FLIP_NONE);
+	}
+	else if (enemyLives == 0)
+	{
+		StateManager::ChangeState(new WinState());
+	}
+	
 }
 
 void GameState3::Exit()
