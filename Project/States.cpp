@@ -103,7 +103,6 @@ void GameState::Enter() // Used for initialization.
 	m_collectables.push_back(new Collectables({ 0, 0, 32,32 }, { 60, 520, 32,32 }, CollectableType::p1));
 	m_collectables.shrink_to_fit();
 
-	//m_potion = new Collectables({ 0, 0, 32,32 }, { 110, 150, 32,32 }, CollectableType::p1);
 	SoundManager::LoadMusic("Assets/Sound/Music/Blood Lord - A Long Journey.mp3", "bgm2");
 	SoundManager::SetMusicVolume(10);
 	SoundManager::PlayMusic("bgm2");
@@ -758,38 +757,31 @@ void GameState3::Enter() // Used for initialization.
 
 void GameState3::Update(float deltaTime)
 {
-	std::cout << m_objects["otto"]->GetDestinationTransform()->x << "," << m_objects["otto"]->GetDestinationTransform()->y << std::endl;
+	std::cout << m_objects["boss"]->GetDestinationTransform()->x << "," << m_objects["boss"]->GetDestinationTransform()->y << std::endl;
 	if (EventManager::KeyPressed(SDL_SCANCODE_P))
 	{
 		StateManager::PushState(new PauseState()); // Add new PauseState
 	}
 	else
 	{
+		boss->Update(deltaTime);
 		for (auto const& i : m_objects)
 		{
 			i.second->Update(deltaTime);
 		}
 
-		boss->Update(deltaTime);
-
 		//Check collision.
 		SDL_FRect* playerColliderTransform = m_objects["otto"]->GetDestinationTransform(); // Copies address of player m_dst.
 		SDL_FRect* bossColliderTransform = boss->GetDestinationTransform();
-
-		float playerLeft = playerColliderTransform->x;
-		float playerRight = playerColliderTransform->x + playerColliderTransform->w;
-		float playerTop = playerColliderTransform->y;
-		float playerBottom = playerColliderTransform->y + playerColliderTransform->h;
-
-		float bossLeft = bossColliderTransform->x;
-		float bossRight = bossColliderTransform->x + bossColliderTransform->w;
-		float bossTop = bossColliderTransform->y;
-		float bossBottom = bossColliderTransform->y + bossColliderTransform->h;
 
 		Player* pPlayer = static_cast<Player*>(m_objects["otto"]);
 
 		for (unsigned int i = 0; i < static_cast<TiledLevel*>(m_objects["level3"])->GetObstacles().size(); i++)
 		{
+			float playerLeft = playerColliderTransform->x;
+			float playerRight = playerColliderTransform->x + playerColliderTransform->w;
+			float playerTop = playerColliderTransform->y;
+			float playerBottom = playerColliderTransform->y + playerColliderTransform->h;
 			SDL_FRect* obstacleColliderTransform = static_cast<TiledLevel*>(m_objects["level3"])->GetObstacles()[i]->GetDestinationTransform();
 
 			float obstacleLeft = obstacleColliderTransform->x;
@@ -835,6 +827,11 @@ void GameState3::Update(float deltaTime)
 		}
 		for (unsigned int i = 0; i < static_cast<TiledLevel*>(m_objects["level3"])->GetObstacles().size(); i++)
 		{
+			float bossLeft = bossColliderTransform->x;
+			float bossRight = bossColliderTransform->x + bossColliderTransform->w;
+			float bossTop = bossColliderTransform->y;
+			float bossBottom = bossColliderTransform->y + bossColliderTransform->h;
+
 			SDL_FRect* obstacleColliderTransform = static_cast<TiledLevel*>(m_objects["level3"])->GetObstacles()[i]->GetDestinationTransform();
 
 			float obstacleLeft = obstacleColliderTransform->x;
@@ -862,19 +859,19 @@ void GameState3::Update(float deltaTime)
 			{
 				if (topCollision < bottomCollision && topCollision < leftCollision && topCollision < rightCollision)
 				{
-					boss->SetY(playerColliderTransform->y - topCollision);
+					boss->SetY(bossColliderTransform->y - topCollision);
 				}
 				if (bottomCollision < topCollision && bottomCollision < leftCollision && bottomCollision < rightCollision)
 				{
-					boss->SetY(playerColliderTransform->y + bottomCollision);
+					boss->SetY(bossColliderTransform->y + bottomCollision);
 				}
 				if (leftCollision < rightCollision && leftCollision < topCollision && leftCollision < bottomCollision)
 				{
-					boss->SetX(playerColliderTransform->x - leftCollision);
+					boss->SetX(bossColliderTransform->x - leftCollision);
 				}
 				if (rightCollision < leftCollision && rightCollision < topCollision && rightCollision < bottomCollision)
 				{
-					boss->SetX(playerColliderTransform->x + rightCollision);
+					boss->SetX(bossColliderTransform->x + rightCollision);
 				}
 			}
 		}
@@ -911,6 +908,8 @@ void GameState3::Render()
 
 	for (auto const& i : m_objects)
 		i.second->Render();
+
+	boss->Render();
 
 	SDL_FRect* playerPos = m_objects["otto"]->GetDestinationTransform();
 	int ottoX = playerPos->x;
@@ -1097,21 +1096,21 @@ void State::bossFollow()
 {
 	if (boss->GetDestinationTransform()->x < Otto->GetDestinationTransform()->x) //enemy is to the left of player
 	{
-		boss->GetDestinationTransform()->x += 0.05;
+		boss->GetDestinationTransform()->x += boss->getBossSpeed() * 2;
 		boss->setBossFacingLeft(true);
 	}
 	if (boss->GetDestinationTransform()->x > Otto->GetDestinationTransform()->x)//enemy is to the right of player
 	{
-		boss->GetDestinationTransform()->x -= 0.05;
+		boss->GetDestinationTransform()->x -= boss->getBossSpeed() * 2;
 		boss->setBossFacingLeft(false);
 	}
 	if (boss->GetDestinationTransform()->y < Otto->GetDestinationTransform()->y) //enemy is above player
 	{
-		boss->GetDestinationTransform()->y += 0.05;
+		boss->GetDestinationTransform()->y += boss->getBossSpeed() * 2;
 	}
 	if (boss->GetDestinationTransform()->y > Otto->GetDestinationTransform()->y) //enemy is below player
 	{
-		boss->GetDestinationTransform()->y -= 0.05;
+		boss->GetDestinationTransform()->y -= boss->getBossSpeed() * 2;
 	}
 }
 // End WinState

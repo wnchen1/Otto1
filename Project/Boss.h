@@ -16,13 +16,13 @@ public:
 	void SetY(float y) { m_destinationTransform.y = y; }
 	BossState* getBossState() {return &m_state;};
 	void setBossState(BossState state) {state = m_state;}
+
+	double getBossSpeed() {return speed;}
 	void Wander();
-	void Follow();
 
 	void setBossFacingLeft(bool left){left = m_facingLeft;}
 
 private:
-	
 	bool m_facingLeft;
 	double speed = 0.25;
 	BossState m_state;

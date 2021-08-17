@@ -10,8 +10,8 @@ Boss::Boss(SDL_Rect sourceTransform, SDL_FRect destinationTransform)
 	m_state(BossState::kRunning),
 	m_facingLeft(true)
 {
-	TextureManager::Load("Assets/Images/boss", "boss");
-
+	
+	TextureManager::Load("Assets/Images/boss.png", "boss");
 	SetAnimation(0.1, 0, 12, 2);
 
 	SoundManager::SetSoundVolume(10);
@@ -46,6 +46,8 @@ void Boss::Update(float deltaTime)
 		SetAnimation(0.1, 0, 13, 0);
 		break;
 	}
+	AnimatedSpriteObject::Update(deltaTime);
+
 }
 
 void Boss::Wander()
@@ -63,25 +65,20 @@ void Boss::Wander()
 
 	if (roll == 1)
 	{
-		m_destinationTransform.x -= 0.050f;
+		m_destinationTransform.x -= speed;
 		m_facingLeft = true;
 	}
 	else if (roll == 2)
 	{
-		m_destinationTransform.x += 0.050f;
+		m_destinationTransform.x += speed;
 		m_facingLeft = false;
 	}
 	else if (roll == 3)
 	{
-		m_destinationTransform.y -= 0.050f;
+		m_destinationTransform.y -= speed;
 	}
 	if (roll == 4)
 	{
-		m_destinationTransform.y += 0.050f;
+		m_destinationTransform.y += speed;
 	}
-}
-
-void Boss::Follow()
-{
-	
 }

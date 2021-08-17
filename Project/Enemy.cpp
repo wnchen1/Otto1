@@ -95,8 +95,3 @@ void Enemy::Wander()
 		m_destinationTransform.y += 0.050f;
 	}
 }
-
-void Enemy::Seek()
-{
-
-}

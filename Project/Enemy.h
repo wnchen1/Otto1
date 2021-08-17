@@ -14,7 +14,6 @@ public:
 	virtual void Render() override;
 	virtual void Update(float deltaTime) override;
 	void Wander();
-	void Seek();
 	void SetX(float x) { m_destinationTransform.x = x; }
 	void SetY(float y) { m_destinationTransform.y = y; }
 	int attack() { return attackValue; }
