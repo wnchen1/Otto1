@@ -5,8 +5,8 @@
 #include "EventManager.h"
 #include "SoundManager.h"
 
-Player::Player(SDL_Rect sourceTransform, SDL_FRect destinationTransform, int lives) :
-	playerLives(lives), AnimatedSpriteObject(sourceTransform, destinationTransform),
+Player::Player(SDL_Rect sourceTransform, SDL_FRect destinationTransform) :
+	 AnimatedSpriteObject(sourceTransform, destinationTransform),
 	m_state(PlayerState::kIdle),
 	m_facingLeft(false)
 

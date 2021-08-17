@@ -38,7 +38,6 @@ public:
 	State* statepointer;
 
 	int counter = 0;
-	int lives = 3;
 };
 
 class TitleState : public State
