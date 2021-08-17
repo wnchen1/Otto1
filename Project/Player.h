@@ -14,16 +14,12 @@ public:
 	virtual void Update(float deltaTime) override;
 	void SetX(float x) { m_destinationTransform.x = x; }
 	void SetY(float y) { m_destinationTransform.y = y; }
-	int getPlayerLives() { return playerLives; }
-	void GainLife() { playerLives++; if (playerLives>3) playerLives = 3;}
-	void LoseLife() { playerLives--; if (playerLives<0) playerLives = 0;}
 
 private:
 	enum class PlayerState { kIdle, kRunning, kAttacking };
 	bool m_facingLeft = false;
 	float speed = 1;
 	PlayerState m_state;
-	int playerLives = 3;
 };
 
 #endif /* defined (__PLAYER__) */

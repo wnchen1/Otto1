@@ -43,7 +43,6 @@ void Enemy::Update(float deltaTime)
 	//statepointer->getPlayerPosition()->x << std::endl; // m_destinationtransform;
 	SDL_Rect player = { statepointer->getPlayerPosition()->x, statepointer->getPlayerPosition()->y, statepointer->getPlayerPosition()->w, statepointer->getPlayerPosition()->h };
 	SDL_Rect enemy = { m_destinationTransform.x - 20, m_destinationTransform.y - 20, m_destinationTransform.w + 20, m_destinationTransform.h + 20 };
-	Wander();
 	switch (m_state)
 	{
 	case EnemyState::Idle:
@@ -51,6 +50,10 @@ void Enemy::Update(float deltaTime)
 		{
 			m_state = EnemyState::Attack;
 			SetAnimation(0.1f, 0, 11, 160);
+		}
+		else if (!SDL_HasIntersection(&player, &enemy))
+		{
+			Wander();
 		}
 		break;
 	case EnemyState::Attack:
@@ -80,18 +83,18 @@ void Enemy::Wander()
 
 	if (roll == 1)
 	{
-		m_destinationTransform.x -= 0.050f;
+		m_destinationTransform.x -= speed;
 	}
 	else if (roll == 2)
 	{
-		m_destinationTransform.x += 0.050f;
+		m_destinationTransform.x += speed;
 	}
 	else if (roll == 3)
 	{
-		m_destinationTransform.y -= 0.050f;
+		m_destinationTransform.y -= speed;
 	}
 	if (roll == 4)
 	{
-		m_destinationTransform.y += 0.050f;
+		m_destinationTransform.y += speed;
 	}
 }

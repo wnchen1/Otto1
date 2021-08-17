@@ -37,6 +37,10 @@ public:
 	std::vector<Enemy*> m_enemy;
 	State* statepointer;
 
+	int ottoLives = 3;
+	void ottoGainLife() { ottoLives++; if (ottoLives > 3) ottoLives = 3;}
+	void ottoLoseLife() { ottoLives--; if (ottoLives<0) ottoLives = 0;}
+
 	int counter = 0;
 };
 

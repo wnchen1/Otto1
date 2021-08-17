@@ -9,7 +9,7 @@ class Boss : public AnimatedSpriteObject
 public:
 	Boss(SDL_Rect sourceTransform, SDL_FRect destinationTransform);
 	~Boss();
-	enum class BossState { kIdle, kAttacking, kRunning, kFollowing};
+	enum class BossState {kAttacking, kIdle, kFollowing};
 	virtual void Render() override;
 	virtual void Update(float deltaTime) override;
 	void SetX(float x) { m_destinationTransform.x = x; }

@@ -7,7 +7,7 @@
 
 Boss::Boss(SDL_Rect sourceTransform, SDL_FRect destinationTransform)
 	: AnimatedSpriteObject(sourceTransform, destinationTransform),
-	m_state(BossState::kRunning),
+	m_state(BossState::kIdle),
 	m_facingLeft(true)
 {
 	
@@ -34,7 +34,7 @@ void Boss::Update(float deltaTime)
 {
 	switch (m_state)
 	{
-		case BossState::kRunning:
+		case BossState::kIdle:
 		SetAnimation(0.1, 0, 12, 2);
 		break;
 

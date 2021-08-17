@@ -199,48 +199,51 @@ void GameState::Update(float deltaTime)
 
 		if (m_enemy.size() < 0)
 		{
-			Enemy* pEnemy = m_enemy.front();
-			SDL_FRect* enemyColliderTransform = pEnemy->GetDestinationTransform();
-			int enemyLeft = enemyColliderTransform->x;
-			int enemyRight = enemyColliderTransform->x + enemyColliderTransform->w;
-			int enemyTop = enemyColliderTransform->y;
-			int enemyBottom = enemyColliderTransform->y + enemyColliderTransform->h;
-
-			for (unsigned int i = 0; i < static_cast<TiledLevel*>(m_objects["level1"])->GetObstacles().size(); i++)
+			for (int i = 0; i < m_enemy.size(); i++)
 			{
-				SDL_FRect* obstacleColliderTransform = static_cast<TiledLevel*>(m_objects["level1"])->GetObstacles()[i]->GetDestinationTransform();
+				//Enemy* pEnemy = m_enemy.front();
+				SDL_FRect* enemyColliderTransform = m_enemy[i]->GetDestinationTransform();
+				int enemyLeft = enemyColliderTransform->x;
+				int enemyRight = enemyColliderTransform->x + enemyColliderTransform->w;
+				int enemyTop = enemyColliderTransform->y;
+				int enemyBottom = enemyColliderTransform->y + enemyColliderTransform->h;
 
-				float obstacleLeft = obstacleColliderTransform->x;
-				float obstacleRight = obstacleColliderTransform->x + obstacleColliderTransform->w;
-				float obstacleTop = obstacleColliderTransform->y;
-				float obstacleBottom = obstacleColliderTransform->y + obstacleColliderTransform->h;
-
-				bool xOverlap = enemyLeft < obstacleRight&& enemyRight > obstacleLeft;
-
-				bool yOverlap = enemyTop < obstacleBottom&& enemyBottom > obstacleTop;
-
-				float bottomCollision = obstacleBottom - enemyColliderTransform->y;
-				float topCollision = enemyBottom - obstacleColliderTransform->y;
-				float leftCollision = enemyRight - obstacleColliderTransform->x;
-				float rightCollision = obstacleRight - enemyColliderTransform->x;
-
-				if (xOverlap && yOverlap)
+				for (unsigned int i = 0; i < static_cast<TiledLevel*>(m_objects["level1"])->GetObstacles().size(); i++)
 				{
-					if (topCollision < bottomCollision && topCollision < leftCollision && topCollision < rightCollision)
+					SDL_FRect* obstacleColliderTransform = static_cast<TiledLevel*>(m_objects["level1"])->GetObstacles()[i]->GetDestinationTransform();
+
+					float obstacleLeft = obstacleColliderTransform->x;
+					float obstacleRight = obstacleColliderTransform->x + obstacleColliderTransform->w;
+					float obstacleTop = obstacleColliderTransform->y;
+					float obstacleBottom = obstacleColliderTransform->y + obstacleColliderTransform->h;
+
+					bool xOverlap = enemyLeft < obstacleRight&& enemyRight > obstacleLeft;
+
+					bool yOverlap = enemyTop < obstacleBottom&& enemyBottom > obstacleTop;
+
+					float bottomCollision = obstacleBottom - enemyColliderTransform->y;
+					float topCollision = enemyBottom - obstacleColliderTransform->y;
+					float leftCollision = enemyRight - obstacleColliderTransform->x;
+					float rightCollision = obstacleRight - enemyColliderTransform->x;
+
+					if (xOverlap && yOverlap)
 					{
-						pEnemy->SetY(enemyColliderTransform->y - topCollision);
-					}
-					if (bottomCollision < topCollision && bottomCollision < leftCollision && bottomCollision < rightCollision)
-					{
-						pEnemy->SetY(enemyColliderTransform->y + bottomCollision);
-					}
-					if (leftCollision < rightCollision && leftCollision < topCollision && leftCollision < bottomCollision)
-					{
-						pEnemy->SetX(enemyColliderTransform->x - leftCollision);
-					}
-					if (rightCollision < leftCollision && rightCollision < topCollision && rightCollision < bottomCollision)
-					{
-						pEnemy->SetX(enemyColliderTransform->x + rightCollision);
+						if (topCollision < bottomCollision && topCollision < leftCollision && topCollision < rightCollision)
+						{
+							m_enemy[i]->SetY(enemyColliderTransform->y - topCollision);
+						}
+						if (bottomCollision < topCollision && bottomCollision < leftCollision && bottomCollision < rightCollision)
+						{
+							m_enemy[i]->SetY(enemyColliderTransform->y + bottomCollision);
+						}
+						if (leftCollision < rightCollision && leftCollision < topCollision && leftCollision < bottomCollision)
+						{
+							m_enemy[i]->SetX(enemyColliderTransform->x - leftCollision);
+						}
+						if (rightCollision < leftCollision && rightCollision < topCollision && rightCollision < bottomCollision)
+						{
+							m_enemy[i]->SetX(enemyColliderTransform->x + rightCollision);
+						}
 					}
 				}
 			}
@@ -259,7 +262,7 @@ void GameState::Update(float deltaTime)
 				{
 						if (m_collectables[i]->getCollectableType() == CollectableType::p1)
 					{
-						Otto->GainLife();
+						ottoGainLife();
 					}
 					delete m_collectables[i];
 					m_collectables[i] = nullptr;
@@ -286,7 +289,7 @@ void GameState::Update(float deltaTime)
 			}
 			if (SDL_HasIntersection(&player, &enemy) && counter % 400 == 0)
 			{
-				pPlayer->LoseLife();
+				ottoLoseLife();
 			}
 
 			if (counter > 400)
@@ -341,22 +344,23 @@ void GameState::Render()
 	const SDL_FRect m_h1Dst = { ottoX , ottoY - 20, 25, 25 };
 	const SDL_FRect m_h2Dst = { ottoX - 10, ottoY - 20, 50, 25 };
 	const SDL_FRect m_h3Dst = { ottoX - 22, ottoY - 20, 75, 25 };
-	if (Otto->getPlayerLives() == 3)
+
+	if (ottoLives == 3)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("3h"), &m_h3Src, &m_h3Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (Otto->getPlayerLives() == 2)
+	else if (ottoLives == 2)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("2h"), &m_h2Src, &m_h2Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (Otto->getPlayerLives() == 1)
+	else if (ottoLives == 1)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("1h"), &m_h1Src, &m_h1Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (Otto->getPlayerLives() == 0)
+	else if (ottoLives == 0)
 	{
 		StateManager::ChangeState(new EndState());
 	}
@@ -605,7 +609,7 @@ void GameState2::Update(float deltaTime)
 				{
 					if (m_collectables[i]->getCollectableType() == CollectableType::p1)
 					{
-						Otto->GainLife();
+						ottoGainLife();
 					}
 					delete m_collectables[i];
 					m_collectables[i] = nullptr;
@@ -633,7 +637,7 @@ void GameState2::Update(float deltaTime)
 			}
 			if (SDL_HasIntersection(&player, &enemy) && counter % 400 == 0)
 			{
-				pPlayer->LoseLife();
+				ottoLoseLife();
 			}
 
 			if (counter > 400)
@@ -684,22 +688,22 @@ void GameState2::Render()
 	const SDL_FRect m_h1Dst = { ottoX , ottoY - 20, 25, 25 };
 	const SDL_FRect m_h2Dst = { ottoX - 10, ottoY - 20, 50, 25 };
 	const SDL_FRect m_h3Dst = { ottoX - 22, ottoY - 20, 75, 25 };
-	if (Otto->getPlayerLives() == 3)
+	if (ottoLives == 3)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("3h"), &m_h3Src, &m_h3Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (Otto->getPlayerLives() == 2)
+	else if (ottoLives == 2)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("2h"), &m_h2Src, &m_h2Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (Otto->getPlayerLives() == 1)
+	else if (ottoLives == 1)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("1h"), &m_h1Src, &m_h1Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (Otto->getPlayerLives() == 0)
+	else if (ottoLives == 0)
 	{
 		StateManager::ChangeState(new EndState());
 	}
@@ -886,6 +890,7 @@ void GameState3::Update(float deltaTime)
 			boss->GetDestinationTransform()->y, Otto->GetDestinationTransform()->y) < 200)
 		{
 			boss->setBossState(Boss::BossState::kFollowing);
+			
 			bossFollow();
 			if (SDL_HasIntersection(&bossRect, &ottoRect))
 			{
@@ -894,6 +899,7 @@ void GameState3::Update(float deltaTime)
 		}
 		else
 		{
+			boss->setBossState(Boss::BossState::kIdle);
 			boss->Wander();
 		}
 	}
@@ -920,22 +926,22 @@ void GameState3::Render()
 	const SDL_FRect m_h1Dst = { ottoX , ottoY - 20, 25, 25 };
 	const SDL_FRect m_h2Dst = { ottoX - 10, ottoY - 20, 50, 25 };
 	const SDL_FRect m_h3Dst = { ottoX - 22, ottoY - 20, 75, 25 };
-	if (Otto->getPlayerLives() == 3)
+	if (ottoLives == 3)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("3h"), &m_h3Src, &m_h3Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (Otto->getPlayerLives() == 2)
+	else if (ottoLives == 2)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("2h"), &m_h2Src, &m_h2Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (Otto->getPlayerLives() == 1)
+	else if (ottoLives == 1)
 	{
 		SDL_RenderCopyExF(Game::GetInstance().GetRenderer(),
 			TextureManager::GetTexture("1h"), &m_h1Src, &m_h1Dst, 0, 0, SDL_FLIP_NONE);
 	}
-	else if (Otto->getPlayerLives() == 0)
+	else if (ottoLives == 0)
 	{
 		StateManager::ChangeState(new EndState());
 	}
